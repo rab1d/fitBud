@@ -11,11 +11,14 @@
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 
+#import "CCBReader.h"
+
 @implementation MyNavigationController
 
 // The available orientations should be defined in the Info.plist file.
 // And in iOS 6+ only, you can override it in the Root View controller in the "supportedInterfaceOrientations" method.
 // Only valid for iOS 6+. NOT VALID for iOS 4 / 5.
+/*
 -(NSUInteger)supportedInterfaceOrientations {
 	
 	// iPhone only
@@ -25,6 +28,7 @@
 	// iPad only
 	return UIInterfaceOrientationMaskLandscape;
 }
+*/
 
 // Supported orientations. Customize it for your own needs
 // Only valid on iOS 4 / 5. NOT VALID for iOS 6.
@@ -48,6 +52,9 @@
 		// Add the first scene to the stack. The director will draw it immediately into the framebuffer. (Animation is started automatically when the view is displayed.)
 		// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 		[director runWithScene: [IntroLayer scene]];
+        
+        //[director runWithScene: [CCBReader sceneWithNodeGraphFromFile:@"HelloCocosBuilder.ccb"]];
+
 	}
 }
 @end

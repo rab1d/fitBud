@@ -18,6 +18,9 @@
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
+// Experience points need to be fetched from somewhere
+@synthesize experiencePoints = _experiencePoints;
+
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
 {
@@ -41,91 +44,79 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
-		// create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
-
+        // we need to call the experience points from a local storage database
+        // for now
+        self.experiencePoints = 0;
+        
+        
 		// ask director for the window size
-		CGSize size = [[CCDirector sharedDirector] winSize];
-	
-		// position the label on the center of the screen
-		label.position =  ccp( size.width /2 , size.height/2 );
-		
-		// add the label as a child to this Layer
-		[self addChild: label];
-		
-		
-		
-		//
-		// Leaderboards and Achievements
-		//
-		
-		// Default font size will be 28 points.
-		[CCMenuItemFont setFontSize:28];
-		
-		// Achievement Menu Item using blocks
-		CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Achievements" block:^(id sender) {
-			
-			
-			GKAchievementViewController *achievementViewController = [[GKAchievementViewController alloc] init];
-			achievementViewController.achievementDelegate = self;
-			
-			AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-			
-			[[app navController] presentModalViewController:achievementViewController animated:YES];
-			
-			[achievementViewController release];
-		}
-									   ];
+		CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
+        // add the background
+        CCSprite *background = [CCSprite spriteWithFile:@"main-background.png"];
+        background.position = ccp(winSize.width/2, winSize.height/2);
+        [self addChild:background z:0];
 
-		// Leaderboard Menu Item using blocks
-		CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"Leaderboard" block:^(id sender) {
-			
-			
-			GKLeaderboardViewController *leaderboardViewController = [[GKLeaderboardViewController alloc] init];
-			leaderboardViewController.leaderboardDelegate = self;
-			
-			AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-			
-			[[app navController] presentModalViewController:leaderboardViewController animated:YES];
-			
-			[leaderboardViewController release];
-		}
-									   ];
-		
-		CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, nil];
-		
-		[menu alignItemsHorizontallyWithPadding:20];
-		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
-		
-		// Add the menu to the layer
-		[self addChild:menu];
+        // add the slider
+        CCSprite *slider = [CCSprite spriteWithFile:@"slider.png"];
+        slider.position = ccp(self.experiencePoints + 31,391);
+        [slider setScaleX:.5];
+        [slider setScaleY:.5];
+        [self addChild:slider z:0];
+        
+        // add the egg
+        CCSprite *avatar = [CCSprite spriteWithFile:@"egg.png"];
+        avatar.position = ccp(winSize.width/2, winSize.height/2);
+        [avatar setScaleX:.5];
+        [avatar setScaleY:.5];
+        [self addChild:avatar z:0];
+        
+        
+        // add the buttons
+        CCMenuItemImage *syncItem = [CCMenuItemImage itemWithNormalImage:@"sync-button.png"
+                                                            selectedImage: @"sync-button-pressed.png"
+                                                                   target:self
+                                                                 selector:@selector(syncBudWithFitBit:)];
+        syncItem.position = ccp(85, 31);
+        [syncItem setScaleX:.5]; [syncItem setScaleY:.5];
+        
+        CCMenuItemImage *logItem = [CCMenuItemImage itemWithNormalImage:@"log-button.png"
+                                                            selectedImage: @"log-button-pressed.png"
+                                                                   target:self
+                                                                 selector:@selector(getLoggedData:)];
+        logItem.position = ccp(238, 37);
+        [logItem setScaleX:.5]; [logItem setScaleY:.5];
+        
+        // Create a menu and add your menu items to it
+        CCMenu * myMenu = [CCMenu menuWithItems:syncItem, logItem, nil];
+        myMenu.position = CGPointZero;
+        // Arrange the menu items vertically
+        //[myMenu alignItemsVertically];
+        
+        // add the menu to your scene
+        [self addChild:myMenu];
+        
 
 	}
 	return self;
 }
 
+- (void) syncBudWithFitBit: (CCMenuItem  *) menuItem
+{
+	NSLog(@"The sync menu was called");
+ 
+}
+- (void) getLoggedData: (CCMenuItem  *) menuItem
+{
+	NSLog(@"The log menu was called");
+}
+
+
+
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
-	// in case you have something to dealloc, do it in this method
-	// in this particular example nothing needs to be released.
-	// cocos2d will automatically release all the children (Label)
-	
-	// don't forget to call "super dealloc"
-	[super dealloc];
+    [super dealloc];
 }
 
-#pragma mark GameKit delegate
-
--(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
-}
-
--(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
-{
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
-}
 @end

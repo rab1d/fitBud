@@ -9,13 +9,18 @@
 
 // Import the interfaces
 #import "IntroLayer.h"
-#import "HelloWorldLayer.h"
 
+
+@interface IntroLayer()
+
+@property (strong,nonatomic) UIWebView *googleView;
+
+@end
 
 #pragma mark - IntroLayer
-
 // HelloWorldLayer implementation
 @implementation IntroLayer
+@synthesize googleView;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -33,7 +38,9 @@
 	return scene;
 }
 
-// 
+//
+
+
 -(id) init
 {
 	if( (self=[super init])) {
@@ -45,9 +52,9 @@
 		
 		if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
 			background = [CCSprite spriteWithFile:@"Default.png"];
-			background.rotation = 90;
+		//	background.rotation = 90;
 		} else {
-			background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
+			background = [CCSprite spriteWithFile:@"Default.png"];
 		}
 		background.position = ccp(size.width/2, size.height/2);
 
@@ -61,6 +68,79 @@
 -(void) onEnter
 {
 	[super onEnter];
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] ]];
+
+  
+    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    
+    NSString * plistName = @"UserData";
+    NSString * finalPath = [basePath stringByAppendingPathComponent:
+                            [NSString stringWithFormat: @"%@.plist", plistName]];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+   
+    /*
+    if(![fileManager fileExistsAtPath:finalPath])
+    {
+       // NSError *error;
+       // NSString * sourcePath = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
+       // [fileManager copyItemAtPath:sourcePath toPath:finalPath error:&error];
+    
+        // open to the login and setup layer
+     */
+        [self loadMyViewController];
+    /*
+    } else{
+     */
+     //   [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] ]];
+  //  }
+
+    
 }
+
+/*
+-(void)displayMainMenu {
+    CGSize screenSize = [CCDirector sharedDirector].winSize;
+    [CCMenuItemFont setFontName:@"Marker Felt"];
+    [CCMenuItemFont setFontSize:26];
+    
+    CCMenuItemFont *openViewC = [CCMenuItemFont itemWithString:@"Open View" target:self selector:@selector(loadMyViewController)];
+    
+    CCMenu * mainMenu = [CCMenu menuWithItems:openViewC, nil];
+    [self addChild:mainMenu z:0];
+}*/
+
+
+
+-(void) loadMyViewController{
+    
+    //Add the tableview when the transition is done
+    /*
+    UIView *viewHost = myView.view;
+    
+    [[[CCDirector sharedDirector] view] addSubview:viewHost];*/
+    FitbitViewController *myView = [[FitbitViewController alloc] init];
+    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+    [app.navController pushViewController:myView animated:YES];
+    [CCDirector sharedDirector].pause;
+}
+
+/*
+-(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
+    NSString *URLString = [[request URL] absoluteString];
+    //detects if Oauth_verifier appears in the url
+    if ([URLString rangeOfString:@"verifier"].location!= NSNotFound) {
+        //possible replace here with a segue or use NSWorkspace
+        NSString *goog = @"http://www.google.com";
+        NSURL *googurl = [NSURL URLWithString:goog];
+        NSURLRequest *googrequest = [NSURLRequest requestWithURL:googurl];
+        [googleView loadRequest:googrequest];
+        NSLog(URLString);
+        [self.oauth requestAcessToken:URLString];
+        NSLog(@"too");}
+        
+        
+    return YES;
+}*/
+
 @end
