@@ -69,7 +69,8 @@
 {
 	[super onEnter];
 
-  
+    
+    // Find the Directory with PList
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
     
@@ -78,6 +79,8 @@
                             [NSString stringWithFormat: @"%@.plist", plistName]];
     NSFileManager * fileManager = [NSFileManager defaultManager];
    
+    
+    
     /*
     if(![fileManager fileExistsAtPath:finalPath])
     {
@@ -97,27 +100,12 @@
     
 }
 
-/*
--(void)displayMainMenu {
-    CGSize screenSize = [CCDirector sharedDirector].winSize;
-    [CCMenuItemFont setFontName:@"Marker Felt"];
-    [CCMenuItemFont setFontSize:26];
-    
-    CCMenuItemFont *openViewC = [CCMenuItemFont itemWithString:@"Open View" target:self selector:@selector(loadMyViewController)];
-    
-    CCMenu * mainMenu = [CCMenu menuWithItems:openViewC, nil];
-    [self addChild:mainMenu z:0];
-}*/
-
 
 
 -(void) loadMyViewController{
     
     //Add the tableview when the transition is done
-    /*
-    UIView *viewHost = myView.view;
-    
-    [[[CCDirector sharedDirector] view] addSubview:viewHost];*/
+
     FitbitViewController *myView = [[FitbitViewController alloc] init];
     AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
     [app.navController pushViewController:myView animated:YES];

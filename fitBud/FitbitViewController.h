@@ -10,6 +10,7 @@
 #import "OAuthConsumer.h"
 #import "OauthMachine2.h"
 #import "cocos2d.h"
+#import "AppDelegate.h"
 
 
 @interface FitbitViewController : UIViewController <UIWebViewDelegate>{

@@ -8,7 +8,7 @@
 
 #import "FitbitViewController.h"
 #import "OAuthConsumer.h"
-#import "cocos2d.h"
+#import "HelloWorldLayer.h"
 
 @interface FitbitViewController ()
 @property (strong, nonatomic) OauthMachine2 *oauth;
@@ -21,13 +21,12 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     //test for internet connection here!
     NSString *tempToken = [self.oauth requestTempToken];
     [self fitbitUserLogin:tempToken];
+    //this method from what I have read
     myUIWebViewz.delegate = self;
-
     // Do any additional setup after loading the view, typically from a nib.
 }
 /***********************************************************************************************************************************************/
@@ -46,26 +45,18 @@
     NSURLRequest *redirectRequest = [NSURLRequest requestWithURL:redirectURL];
     [myUIWebViewz loadRequest:redirectRequest];
     self.view=myUIWebViewz;
-    }
+}
 /***********************************************************************************************************************************************/
-
+///delegate method
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *URLString = [[request URL] absoluteString];
     //detects if Oauth_verifier appears in the url
     if ([URLString rangeOfString:@"verifier"].location!= NSNotFound) {
         //possible replace here with a segue or use NSWorkspace
-        
-        /*
-        NSString *goog = @"http://www.google.com";
-        NSURL *googurl = [NSURL URLWithString:goog];
-        NSURLRequest *googrequest = [NSURLRequest requestWithURL:googurl];
-        [myUIWebViewz loadRequest:googrequest];
-        NSLog(URLString);
+        AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+        [app.navController popViewControllerAnimated:YES];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
         [self.oauth requestAcessToken:URLString];
-         */
-        
-        [director replaceWithScene: [IntroLayer scene]];
-        
     }
     return YES;
 }

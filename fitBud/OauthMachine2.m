@@ -22,6 +22,8 @@
 @synthesize accessToken;
 
 -(NSString *)requestTempToken{
+    
+    // What does this do?
     //***This should be encased in it's own method.
     NSString *oauthConsumerKey = @"a34d9f6d5ec04f308b126f41e6c40bea";
     NSString *oauthConsumerSecret = @"95d8ba531633418ab78dcff622c83355";
@@ -36,6 +38,7 @@
                                                                       realm:nil   // our service provider doesn't specify a realm
                                                           signatureProvider:nil]; // use the default method, HMAC-SHA1
     [request setHTTPMethod:@"POST"];
+   
     ////this is asynchronus method but the methods inside the selectors execute last in the queue it seems.
     OADataFetcher *fetcher = [[OADataFetcher alloc] init];
     [fetcher fetchDataWithRequest:request
@@ -44,10 +47,13 @@
                   didFailSelector:@selector(requestTokenTicket:didFailWithError:)];
     ///this is the synchronus method and it requires error handling to be implemented.
     //I think that a synchronus method is best here as this is for startup.
+    
     NSData *returnedData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:NULL];
     NSString *responseBody = [[NSString alloc]initWithData:returnedData encoding:NSUTF8StringEncoding];
     NSLog([NSString stringWithFormat:@"This is the begining %@", responseBody]);
     self.tempToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+    
+    
     return self.tempToken.key;
 }
 

@@ -537,7 +537,7 @@
 		9A2BB959169BCF260076B0CA /* OATokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OATokenManager.h; sourceTree = "<group>"; };
 		9A2BB95A169BCF260076B0CA /* OATokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OATokenManager.m; sourceTree = "<group>"; };
 		9A2BB95B169BCF260076B0CA /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
-		9A3CAEDA169BEE7E001F312A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9A3CAEDA169BEE7E001F312A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		9A3CAEE2169BEEAD001F312A /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		9A3CAEE3169BEEAD001F312A /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		9A3CAEE4169BEEAD001F312A /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -581,8 +581,6 @@
 		869469931699EE8C0025CF85 = {
 			isa = PBXGroup;
 			children = (
-				9A3CAEDA169BEE7E001F312A /* Default-568h@2x.png */,
-				9A75E76E169B86C2000AFC56 /* libz.dylib */,
 				869469B41699EE8C0025CF85 /* fitBud */,
 				869469A11699EE8C0025CF85 /* Frameworks */,
 				8694699F1699EE8C0025CF85 /* Products */,
@@ -619,12 +617,8 @@
 				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 				86946B3B1699EE910025CF85 /* AppDelegate.h */,
 				86946B3C1699EE910025CF85 /* AppDelegate.m */,
-				86946B3E1699EE910025CF85 /* HelloWorldLayer.h */,
-				86946B3F1699EE910025CF85 /* HelloWorldLayer.m */,
 				9A9849E9169CD1BD006FF3B5 /* FitbitViewController.h */,
 				9A9849EA169CD1BD006FF3B5 /* FitbitViewController.m */,
-				86946B411699EE910025CF85 /* IntroLayer.h */,
-				86946B421699EE910025CF85 /* IntroLayer.m */,
 				9A9849ED169DDBC0006FF3B5 /* OauthMachine2.h */,
 				9A9849EE169DDBC0006FF3B5 /* OauthMachine2.m */,
 				86D0667B169A8B580030E1DB /* Layers */,
@@ -643,6 +637,7 @@
 				86D06634169A88810030E1DB /* Scenes */,
 				869469B61699EE8C0025CF85 /* Default.png */,
 				869469BE1699EE8D0025CF85 /* Icon-72.png */,
+				9A3CAEDA169BEE7E001F312A /* Default-568h@2x.png */,
 				869469C01699EE8D0025CF85 /* Icon-Small-50.png */,
 				9A2BB925169B9D7B0076B0CA /* log-button-pressed.png */,
 				9A2BB926169B9D7B0076B0CA /* log-button.png */,
@@ -664,6 +659,7 @@
 		869469CD1699EE8D0025CF85 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				9A75E76E169B86C2000AFC56 /* libz.dylib */,
 				86946AF51699EE900025CF85 /* LICENSE_cocos2d.txt */,
 				86946B041699EE910025CF85 /* LICENSE_CocosDenshion.txt */,
 				86946B361699EE910025CF85 /* LICENSE_Kazmath.txt */,
@@ -1106,6 +1102,10 @@
 		86D0667B169A8B580030E1DB /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				86946B411699EE910025CF85 /* IntroLayer.h */,
+				86946B421699EE910025CF85 /* IntroLayer.m */,
+				86946B3E1699EE910025CF85 /* HelloWorldLayer.h */,
+				86946B3F1699EE910025CF85 /* HelloWorldLayer.m */,
 				86D06686169A94F00030E1DB /* MainMenuLayer.h */,
 				86D06687169A94F00030E1DB /* MainMenuLayer.m */,
 			);

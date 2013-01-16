@@ -15,8 +15,7 @@
 
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
-{
+@interface HelloWorldLayer : CCLayer {
 }
 
 @property double experiencePoints;
