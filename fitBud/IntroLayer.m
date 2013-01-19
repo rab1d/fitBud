@@ -44,15 +44,15 @@
 -(id) init
 {
 	if( (self=[super init])) {
+        
+        // add the launch screen
 
 		// ask director for the window size
 		CGSize size = [[CCDirector sharedDirector] winSize];
 
 		CCSprite *background;
-		
 		if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
 			background = [CCSprite spriteWithFile:@"Default.png"];
-		//	background.rotation = 90;
 		} else {
 			background = [CCSprite spriteWithFile:@"Default.png"];
 		}
@@ -68,49 +68,32 @@
 -(void) onEnter
 {
 	[super onEnter];
-
+    GameData* userData = [[GameData alloc] init];
     
-    // Find the Directory with PList
-    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    // if userData exists, load it
+    //[userData loadUserData];
+    // else Load login screen
+    [self loadFitBitLoginScreen];
     
-    NSString * plistName = @"UserData";
-    NSString * finalPath = [basePath stringByAppendingPathComponent:
-                            [NSString stringWithFormat: @"%@.plist", plistName]];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-   
-    
-    
-    /*
-    if(![fileManager fileExistsAtPath:finalPath])
-    {
-       // NSError *error;
-       // NSString * sourcePath = [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
-       // [fileManager copyItemAtPath:sourcePath toPath:finalPath error:&error];
-    
-        // open to the login and setup layer
-     */
-        [self loadMyViewController];
-    /*
-    } else{
-     */
-     //   [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] ]];
-  //  }
 
     
 }
 
 
 
--(void) loadMyViewController{
+-(void) loadFitBitLoginScreen{
     
     //Add the tableview when the transition is done
 
-    FitbitViewController *myView = [[FitbitViewController alloc] init];
+    FitbitViewController *FBView = [[FitbitViewController alloc] init];
     AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
-    [app.navController pushViewController:myView animated:YES];
+    [app.navController pushViewController:FBView animated:YES];
     [CCDirector sharedDirector].pause;
+    
+   // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
+
 }
+
 
 /*
 -(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{

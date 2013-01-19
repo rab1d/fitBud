@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
+		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
 		869469A31699EE8C0025CF85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A21699EE8C0025CF85 /* QuartzCore.framework */; };
 		869469A51699EE8C0025CF85 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A41699EE8C0025CF85 /* OpenGLES.framework */; };
 		869469A71699EE8C0025CF85 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A61699EE8C0025CF85 /* OpenAL.framework */; };
@@ -134,8 +136,6 @@
 		86946B3D1699EE910025CF85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3C1699EE910025CF85 /* AppDelegate.m */; };
 		86946B401699EE910025CF85 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3F1699EE910025CF85 /* HelloWorldLayer.m */; };
 		86946B431699EE910025CF85 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B421699EE910025CF85 /* IntroLayer.m */; };
-		86D06637169A88810030E1DB /* MainMenuScene.ccb in Resources */ = {isa = PBXBuildFile; fileRef = 86D06635169A88810030E1DB /* MainMenuScene.ccb */; };
-		86D06638169A88810030E1DB /* MainMenuScene.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 86D06636169A88810030E1DB /* MainMenuScene.ccbi */; };
 		86D06666169A8A200030E1DB /* CCBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0663C169A8A200030E1DB /* CCBAnimationManager.m */; };
 		86D06667169A8A200030E1DB /* CCBKeyframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0663E169A8A200030E1DB /* CCBKeyframe.m */; };
 		86D06668169A8A200030E1DB /* CCBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06640169A8A200030E1DB /* CCBReader.m */; };
@@ -156,7 +156,6 @@
 		86D06677169A8A200030E1DB /* CCScale9Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06661169A8A200030E1DB /* CCScale9Sprite.m */; };
 		86D06678169A8A200030E1DB /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06663169A8A200030E1DB /* Utils.m */; };
 		86D06679169A8A200030E1DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 86D06665169A8A200030E1DB /* README.md */; };
-		86D06688169A94F00030E1DB /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06687169A94F00030E1DB /* MainMenuLayer.m */; };
 		9A2BB91C169B96540076B0CA /* sync-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91A169B96540076B0CA /* sync-button-pressed.png */; };
 		9A2BB91D169B96540076B0CA /* sync-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91B169B96540076B0CA /* sync-button.png */; };
 		9A2BB920169B96600076B0CA /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91F169B96600076B0CA /* slider.png */; };
@@ -190,6 +189,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8643D31716A766EF001B4665 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
+		8643D31816A766EF001B4665 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
+		8643D31A16A779ED001B4665 /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
+		8643D31B16A779ED001B4665 /* Egg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Egg.m; sourceTree = "<group>"; };
 		8694699E1699EE8C0025CF85 /* fitBud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fitBud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869469A21699EE8C0025CF85 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		869469A41699EE8C0025CF85 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -460,8 +463,6 @@
 		86946B3F1699EE910025CF85 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		86946B411699EE910025CF85 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		86946B421699EE910025CF85 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
-		86D06635169A88810030E1DB /* MainMenuScene.ccb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MainMenuScene.ccb; sourceTree = "<group>"; };
-		86D06636169A88810030E1DB /* MainMenuScene.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; path = MainMenuScene.ccbi; sourceTree = "<group>"; };
 		86D0663B169A8A200030E1DB /* CCBAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBAnimationManager.h; sourceTree = "<group>"; };
 		86D0663C169A8A200030E1DB /* CCBAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBAnimationManager.m; sourceTree = "<group>"; };
 		86D0663D169A8A200030E1DB /* CCBKeyframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBKeyframe.h; sourceTree = "<group>"; };
@@ -501,8 +502,6 @@
 		86D06663169A8A200030E1DB /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		86D06664169A8A200030E1DB /* CCControlExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlExtension.h; sourceTree = "<group>"; };
 		86D06665169A8A200030E1DB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		86D06686169A94F00030E1DB /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuLayer.h; path = ../MainMenuLayer.h; sourceTree = "<group>"; };
-		86D06687169A94F00030E1DB /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuLayer.m; path = ../MainMenuLayer.m; sourceTree = "<group>"; };
 		9A2BB91A169B96540076B0CA /* sync-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button-pressed.png"; path = "Resources/sync-button-pressed.png"; sourceTree = "<group>"; };
 		9A2BB91B169B96540076B0CA /* sync-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button.png"; path = "Resources/sync-button.png"; sourceTree = "<group>"; };
 		9A2BB91F169B96600076B0CA /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slider.png; path = Resources/slider.png; sourceTree = "<group>"; };
@@ -614,6 +613,8 @@
 		869469B41699EE8C0025CF85 /* fitBud */ = {
 			isa = PBXGroup;
 			children = (
+				8643D31716A766EF001B4665 /* GameData.h */,
+				8643D31816A766EF001B4665 /* GameData.m */,
 				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 				86946B3B1699EE910025CF85 /* AppDelegate.h */,
 				86946B3C1699EE910025CF85 /* AppDelegate.m */,
@@ -634,7 +635,6 @@
 		869469B51699EE8C0025CF85 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				86D06634169A88810030E1DB /* Scenes */,
 				869469B61699EE8C0025CF85 /* Default.png */,
 				869469BE1699EE8D0025CF85 /* Icon-72.png */,
 				9A3CAEDA169BEE7E001F312A /* Default-568h@2x.png */,
@@ -1012,16 +1012,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		86D06634169A88810030E1DB /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				86D06635169A88810030E1DB /* MainMenuScene.ccb */,
-				86D06636169A88810030E1DB /* MainMenuScene.ccbi */,
-			);
-			name = Scenes;
-			path = Resources/Scenes;
-			sourceTree = "<group>";
-		};
 		86D0663A169A8A200030E1DB /* CCBReader */ = {
 			isa = PBXGroup;
 			children = (
@@ -1106,8 +1096,8 @@
 				86946B421699EE910025CF85 /* IntroLayer.m */,
 				86946B3E1699EE910025CF85 /* HelloWorldLayer.h */,
 				86946B3F1699EE910025CF85 /* HelloWorldLayer.m */,
-				86D06686169A94F00030E1DB /* MainMenuLayer.h */,
-				86D06687169A94F00030E1DB /* MainMenuLayer.m */,
+				8643D31A16A779ED001B4665 /* Egg.h */,
+				8643D31B16A779ED001B4665 /* Egg.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -1234,8 +1224,6 @@
 				869469C91699EE8D0025CF85 /* Icon@2x.png in Resources */,
 				869469CC1699EE8D0025CF85 /* iTunesArtwork in Resources */,
 				86946B1B1699EE910025CF85 /* ChangeLog in Resources */,
-				86D06637169A88810030E1DB /* MainMenuScene.ccb in Resources */,
-				86D06638169A88810030E1DB /* MainMenuScene.ccbi in Resources */,
 				86D06679169A8A200030E1DB /* README.md in Resources */,
 				9A2BB91C169B96540076B0CA /* sync-button-pressed.png in Resources */,
 				9A2BB91D169B96540076B0CA /* sync-button.png in Resources */,
@@ -1384,7 +1372,6 @@
 				86D06676169A8A200030E1DB /* CCColourUtils.m in Sources */,
 				86D06677169A8A200030E1DB /* CCScale9Sprite.m in Sources */,
 				86D06678169A8A200030E1DB /* Utils.m in Sources */,
-				86D06688169A94F00030E1DB /* MainMenuLayer.m in Sources */,
 				9A2BB95C169BCF260076B0CA /* OAAttachment.m in Sources */,
 				9A2BB95D169BCF260076B0CA /* OACall.m in Sources */,
 				9A2BB95E169BCF260076B0CA /* OAConsumer.m in Sources */,
@@ -1405,6 +1392,8 @@
 				9A3CAEF4169BEEC8001F312A /* sha1.c in Sources */,
 				9A9849EB169CD1BD006FF3B5 /* FitbitViewController.m in Sources */,
 				9A9849EF169DDBC0006FF3B5 /* OauthMachine2.m in Sources */,
+				8643D31916A766F0001B4665 /* GameData.m in Sources */,
+				8643D31C16A779ED001B4665 /* Egg.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

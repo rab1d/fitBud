@@ -15,11 +15,26 @@
 
 #pragma mark - HelloWorldLayer
 
+
+@interface HelloWorldLayer ()
+@property (nonatomic) CGSize windowSize;
+@end
+
+
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
+
 // Experience points need to be fetched from somewhere
 @synthesize experiencePoints = _experiencePoints;
+@synthesize windowSize  = _windowSize;
+
+
+-(void)setWindowSize:(CGSize)winSize{
+        CGSize windowSize = [[CCDirector sharedDirector] winSize];
+    
+}
+
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -47,59 +62,84 @@
         // we need to call the experience points from a local storage database
         // for now
         self.experiencePoints = 0;
-        
-        
-		// ask director for the window size
-		CGSize winSize = [[CCDirector sharedDirector] winSize];
-        
-        // add the background
-        CCSprite *background = [CCSprite spriteWithFile:@"main-background.png"];
-        background.position = ccp(winSize.width/2, winSize.height/2);
-        [self addChild:background z:0];
 
+        
         // add the slider
-        CCSprite *slider = [CCSprite spriteWithFile:@"slider.png"];
-        slider.position = ccp(self.experiencePoints + 31,391);
-        [slider setScaleX:.5];
-        [slider setScaleY:.5];
-        [self addChild:slider z:0];
+        [self loadSlider];
         
         // add the egg
-        CCSprite *avatar = [CCSprite spriteWithFile:@"egg.png"];
-        avatar.position = ccp(winSize.width/2, winSize.height/2);
-        [avatar setScaleX:.5];
-        [avatar setScaleY:.5];
-        [self addChild:avatar z:0];
-        
+        [self loadAvatar];
         
         // add the buttons
-        CCMenuItemImage *syncItem = [CCMenuItemImage itemWithNormalImage:@"sync-button.png"
-                                                            selectedImage: @"sync-button-pressed.png"
-                                                                   target:self
-                                                                 selector:@selector(syncBudWithFitBit:)];
-        syncItem.position = ccp(85, 31);
-        [syncItem setScaleX:.5]; [syncItem setScaleY:.5];
-        
-        CCMenuItemImage *logItem = [CCMenuItemImage itemWithNormalImage:@"log-button.png"
-                                                            selectedImage: @"log-button-pressed.png"
-                                                                   target:self
-                                                                 selector:@selector(getLoggedData:)];
-        logItem.position = ccp(238, 37);
-        [logItem setScaleX:.5]; [logItem setScaleY:.5];
-        
-        // Create a menu and add your menu items to it
-        CCMenu * myMenu = [CCMenu menuWithItems:syncItem, logItem, nil];
-        myMenu.position = CGPointZero;
-        // Arrange the menu items vertically
-        //[myMenu alignItemsVertically];
-        
-        // add the menu to your scene
-        [self addChild:myMenu];
-        
+        [self loadButtons];
 
+        // add backgroud
+        [self loadBackground];
 	}
 	return self;
 }
+
+/**************************************************/
+// Load Initial Sprites
+/**************************************************/
+
+-(void) loadAvatar{
+    CCSprite *avatar = [CCSprite spriteWithFile:@"egg.png"];
+    avatar.position = ccp(self.windowSize.width/2, self.windowSize.height);
+    [avatar setScaleX:.5];
+    [avatar setScaleY:.5];
+    [self addChild:avatar z:0];
+};
+
+
+-(void) loadSlider{
+    CCSprite *slider = [CCSprite spriteWithFile:@"slider.png"];
+    CGPoint startPoint = ccp(31, 391);
+    slider.position = ccp(self.experiencePoints + startPoint.x, startPoint.y);
+    [slider setScaleX:.5];
+    [slider setScaleY:.5];
+    [self addChild:slider z:0];
+};
+
+-(void) loadBackground{
+    // add the background
+    CCSprite *background = [CCSprite spriteWithFile:@"main-background.png"];
+    background.anchorPoint = ccp(0,0);
+    
+    background.position = ccp(0,0);
+    //background.position = ccp(self.windowSize.width/2, self.windowSize.height/2);
+    [self addChild:background z:-1];};
+
+
+-(void) loadButtons{
+    CCMenuItemImage *syncItem = [CCMenuItemImage itemWithNormalImage:@"sync-button.png"
+                                                       selectedImage: @"sync-button-pressed.png"
+                                                              target:self
+                                                            selector:@selector(syncBudWithFitBit:)];
+    syncItem.position = ccp(85, 31);
+    [syncItem setScaleX:.5]; [syncItem setScaleY:.5];
+    
+    CCMenuItemImage *logItem = [CCMenuItemImage itemWithNormalImage:@"log-button.png"
+                                                      selectedImage: @"log-button-pressed.png"
+                                                             target:self
+                                                           selector:@selector(getLoggedData:)];
+    logItem.position = ccp(238, 37);
+    [logItem setScaleX:.5]; [logItem setScaleY:.5];
+    
+    // Create a menu and add your menu items to it
+    CCMenu * myMenu = [CCMenu menuWithItems:syncItem, logItem, nil];
+    myMenu.position = CGPointZero;
+    // Arrange the menu items vertically
+    //[myMenu alignItemsVertically];
+    
+    // add the menu to your scene
+    [self addChild:myMenu z:1];
+};
+
+
+/**************************************************/
+// Buttons
+/**************************************************/
 
 - (void) syncBudWithFitBit: (CCMenuItem  *) menuItem
 {

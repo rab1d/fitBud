@@ -18,7 +18,6 @@
 {
 	UIWindow *window_;
 	MyNavigationController *navController_;
-
 	CCDirectorIOS	*director_;							// weak ref
 }
 
