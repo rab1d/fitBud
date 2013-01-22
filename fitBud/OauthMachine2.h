@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "OAuthConsumer.h"
+#import "GameData.h"
 
 @interface OauthMachine2 : NSObject
+
 
 -(NSString *)requestTempToken;
 -(void)requestAcessToken:(NSString *)URLString;

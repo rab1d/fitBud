@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
 		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
+		8658CA1A16ADE40A00565CDF /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658CA1916ADE40A00565CDF /* Slider.m */; };
 		869469A31699EE8C0025CF85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A21699EE8C0025CF85 /* QuartzCore.framework */; };
 		869469A51699EE8C0025CF85 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A41699EE8C0025CF85 /* OpenGLES.framework */; };
 		869469A71699EE8C0025CF85 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869469A61699EE8C0025CF85 /* OpenAL.framework */; };
@@ -136,12 +137,6 @@
 		86946B3D1699EE910025CF85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3C1699EE910025CF85 /* AppDelegate.m */; };
 		86946B401699EE910025CF85 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3F1699EE910025CF85 /* HelloWorldLayer.m */; };
 		86946B431699EE910025CF85 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B421699EE910025CF85 /* IntroLayer.m */; };
-		86D06666169A8A200030E1DB /* CCBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0663C169A8A200030E1DB /* CCBAnimationManager.m */; };
-		86D06667169A8A200030E1DB /* CCBKeyframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0663E169A8A200030E1DB /* CCBKeyframe.m */; };
-		86D06668169A8A200030E1DB /* CCBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06640169A8A200030E1DB /* CCBReader.m */; };
-		86D06669169A8A200030E1DB /* CCBsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06642169A8A200030E1DB /* CCBsequence.m */; };
-		86D0666A169A8A200030E1DB /* CCBSequenceProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06644169A8A200030E1DB /* CCBSequenceProperty.m */; };
-		86D0666B169A8A200030E1DB /* CCNode+CCBRelativePositioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06646169A8A200030E1DB /* CCNode+CCBRelativePositioning.m */; };
 		86D0666C169A8A200030E1DB /* CCControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0664A169A8A200030E1DB /* CCControl.m */; };
 		86D0666D169A8A200030E1DB /* CCControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0664C169A8A200030E1DB /* CCControlButton.m */; };
 		86D0666E169A8A200030E1DB /* CCControlColourPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0664E169A8A200030E1DB /* CCControlColourPicker.m */; };
@@ -193,6 +188,8 @@
 		8643D31816A766EF001B4665 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
 		8643D31A16A779ED001B4665 /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
 		8643D31B16A779ED001B4665 /* Egg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Egg.m; sourceTree = "<group>"; };
+		8658CA1816ADE40A00565CDF /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
+		8658CA1916ADE40A00565CDF /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
 		8694699E1699EE8C0025CF85 /* fitBud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fitBud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869469A21699EE8C0025CF85 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		869469A41699EE8C0025CF85 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -463,18 +460,6 @@
 		86946B3F1699EE910025CF85 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		86946B411699EE910025CF85 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		86946B421699EE910025CF85 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
-		86D0663B169A8A200030E1DB /* CCBAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBAnimationManager.h; sourceTree = "<group>"; };
-		86D0663C169A8A200030E1DB /* CCBAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBAnimationManager.m; sourceTree = "<group>"; };
-		86D0663D169A8A200030E1DB /* CCBKeyframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBKeyframe.h; sourceTree = "<group>"; };
-		86D0663E169A8A200030E1DB /* CCBKeyframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBKeyframe.m; sourceTree = "<group>"; };
-		86D0663F169A8A200030E1DB /* CCBReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBReader.h; sourceTree = "<group>"; };
-		86D06640169A8A200030E1DB /* CCBReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBReader.m; sourceTree = "<group>"; };
-		86D06641169A8A200030E1DB /* CCBSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBSequence.h; sourceTree = "<group>"; };
-		86D06642169A8A200030E1DB /* CCBsequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBsequence.m; sourceTree = "<group>"; };
-		86D06643169A8A200030E1DB /* CCBSequenceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBSequenceProperty.h; sourceTree = "<group>"; };
-		86D06644169A8A200030E1DB /* CCBSequenceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBSequenceProperty.m; sourceTree = "<group>"; };
-		86D06645169A8A200030E1DB /* CCNode+CCBRelativePositioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+CCBRelativePositioning.h"; sourceTree = "<group>"; };
-		86D06646169A8A200030E1DB /* CCNode+CCBRelativePositioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+CCBRelativePositioning.m"; sourceTree = "<group>"; };
 		86D06649169A8A200030E1DB /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
 		86D0664A169A8A200030E1DB /* CCControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCControl.m; sourceTree = "<group>"; };
 		86D0664B169A8A200030E1DB /* CCControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlButton.h; sourceTree = "<group>"; };
@@ -626,7 +611,6 @@
 				869469B51699EE8C0025CF85 /* Resources */,
 				869469CD1699EE8D0025CF85 /* libs */,
 				86946B371699EE910025CF85 /* Supporting Files */,
-				86D0663A169A8A200030E1DB /* CCBReader */,
 				86D06647169A8A200030E1DB /* CCControlExtension */,
 			);
 			path = fitBud;
@@ -1012,25 +996,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		86D0663A169A8A200030E1DB /* CCBReader */ = {
-			isa = PBXGroup;
-			children = (
-				86D0663B169A8A200030E1DB /* CCBAnimationManager.h */,
-				86D0663C169A8A200030E1DB /* CCBAnimationManager.m */,
-				86D0663D169A8A200030E1DB /* CCBKeyframe.h */,
-				86D0663E169A8A200030E1DB /* CCBKeyframe.m */,
-				86D0663F169A8A200030E1DB /* CCBReader.h */,
-				86D06640169A8A200030E1DB /* CCBReader.m */,
-				86D06641169A8A200030E1DB /* CCBSequence.h */,
-				86D06642169A8A200030E1DB /* CCBsequence.m */,
-				86D06643169A8A200030E1DB /* CCBSequenceProperty.h */,
-				86D06644169A8A200030E1DB /* CCBSequenceProperty.m */,
-				86D06645169A8A200030E1DB /* CCNode+CCBRelativePositioning.h */,
-				86D06646169A8A200030E1DB /* CCNode+CCBRelativePositioning.m */,
-			);
-			path = CCBReader;
-			sourceTree = "<group>";
-		};
 		86D06647169A8A200030E1DB /* CCControlExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1098,6 +1063,8 @@
 				86946B3F1699EE910025CF85 /* HelloWorldLayer.m */,
 				8643D31A16A779ED001B4665 /* Egg.h */,
 				8643D31B16A779ED001B4665 /* Egg.m */,
+				8658CA1816ADE40A00565CDF /* Slider.h */,
+				8658CA1916ADE40A00565CDF /* Slider.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -1353,12 +1320,6 @@
 				86946B3D1699EE910025CF85 /* AppDelegate.m in Sources */,
 				86946B401699EE910025CF85 /* HelloWorldLayer.m in Sources */,
 				86946B431699EE910025CF85 /* IntroLayer.m in Sources */,
-				86D06666169A8A200030E1DB /* CCBAnimationManager.m in Sources */,
-				86D06667169A8A200030E1DB /* CCBKeyframe.m in Sources */,
-				86D06668169A8A200030E1DB /* CCBReader.m in Sources */,
-				86D06669169A8A200030E1DB /* CCBsequence.m in Sources */,
-				86D0666A169A8A200030E1DB /* CCBSequenceProperty.m in Sources */,
-				86D0666B169A8A200030E1DB /* CCNode+CCBRelativePositioning.m in Sources */,
 				86D0666C169A8A200030E1DB /* CCControl.m in Sources */,
 				86D0666D169A8A200030E1DB /* CCControlButton.m in Sources */,
 				86D0666E169A8A200030E1DB /* CCControlColourPicker.m in Sources */,
@@ -1394,6 +1355,7 @@
 				9A9849EF169DDBC0006FF3B5 /* OauthMachine2.m in Sources */,
 				8643D31916A766F0001B4665 /* GameData.m in Sources */,
 				8643D31C16A779ED001B4665 /* Egg.m in Sources */,
+				8658CA1A16ADE40A00565CDF /* Slider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

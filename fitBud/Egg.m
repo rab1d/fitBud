@@ -20,7 +20,22 @@
     [avatar setScaleX:.5];
     [avatar setScaleY:.5];
     [self addChild:avatar z:0];
+    avatar.tag = 1;
+    
+//    self.isTouchEnabled = YES;
     
 }
 
 @end
+
+/*-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch * touch = [touches anyObject];
+    
+    //get touch coordinated
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    
+    
+    CCLOG(@"touch happened at x: %0.2f, y: %0.2f", location.x, location.y);
+    
+}*/

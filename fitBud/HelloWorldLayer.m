@@ -18,6 +18,8 @@
 
 @interface HelloWorldLayer ()
 @property (nonatomic) CGSize windowSize;
+@property (nonatomic) Egg *EggLayer;
+@property (nonatomic) Slider *SliderLayer;
 @end
 
 
@@ -26,15 +28,26 @@
 
 
 // Experience points need to be fetched from somewhere
-@synthesize experiencePoints = _experiencePoints;
+//@synthesize experiencePoints = _experiencePoints;
 @synthesize windowSize  = _windowSize;
+@synthesize EggLayer = _EggLayer;
+@synthesize SliderLayer = _SliderLayer;
 
 
 -(void)setWindowSize:(CGSize)winSize{
         CGSize windowSize = [[CCDirector sharedDirector] winSize];
-    
+
 }
 
+-(Egg *)EggLayer{
+    if(!_EggLayer) _EggLayer = [Egg node];
+    return _EggLayer;
+}
+
+-(Slider *)SliderLayer{
+    if(!_SliderLayer) _SliderLayer = [Slider node];
+    return _SliderLayer;
+}
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -58,47 +71,42 @@
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
-		
-        // we need to call the experience points from a local storage database
-        // for now
-        self.experiencePoints = 0;
-
         
-        // add the slider
-        [self loadSlider];
+        self.isTouchEnabled = YES;
         
-        // add the egg
+        [self loadSliderLayer];
         [self loadAvatar];
-        
-        // add the buttons
         [self loadButtons];
-
-        // add backgroud
         [self loadBackground];
+        
+    
+        
+        
 	}
 	return self;
 }
+
+
+
 
 /**************************************************/
 // Load Initial Sprites
 /**************************************************/
 
 -(void) loadAvatar{
-    CCSprite *avatar = [CCSprite spriteWithFile:@"egg.png"];
-    avatar.position = ccp(self.windowSize.width/2, self.windowSize.height);
-    [avatar setScaleX:.5];
-    [avatar setScaleY:.5];
-    [self addChild:avatar z:0];
+
+    //Egg * eggLayer = [Egg node];
+    [self addChild: self.EggLayer z:0];
+    [self.EggLayer loadEgg];
+    
 };
 
 
--(void) loadSlider{
-    CCSprite *slider = [CCSprite spriteWithFile:@"slider.png"];
-    CGPoint startPoint = ccp(31, 391);
-    slider.position = ccp(self.experiencePoints + startPoint.x, startPoint.y);
-    [slider setScaleX:.5];
-    [slider setScaleY:.5];
-    [self addChild:slider z:0];
+-(void) loadSliderLayer{
+    //Slider * sliderLayer = [Slider node];
+    [self addChild: self.SliderLayer z:0];
+    [self.SliderLayer updateSlider];
+
 };
 
 -(void) loadBackground{
@@ -136,6 +144,28 @@
     [self addChild:myMenu z:1];
 };
 
+/**************************************************/
+// Touches
+/**************************************************/
+
+-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch * touch = [touches anyObject];
+    
+    //get touch coordinated
+    CGPoint location = [touch locationInView:[touch view]];
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    
+    
+    CCLOG(@"touch happened at x: %0.2f, y: %0.2f", location.x, location.y);
+    
+    CCSprite *eggSprite = (CCSprite *)[self.EggLayer getChildByTag:1];
+    if (CGRectContainsPoint([eggSprite boundingBox], location)){
+        CCLOG(@"touched the egg");
+    }
+    
+    
+}
+
 
 /**************************************************/
 // Buttons
@@ -160,3 +190,6 @@
 }
 
 @end
+
+
+

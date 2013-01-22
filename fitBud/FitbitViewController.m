@@ -76,15 +76,15 @@
     
     //detects if Oauth_verifier appears in the url
     if ([URLString rangeOfString:@"verifier"].location!= NSNotFound) {
-        
-        //
-        AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
-        [app.navController popViewControllerAnimated:YES];
 
         [self.oauth requestAcessToken:URLString];
         
+        AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+        [app.navController popViewControllerAnimated:YES];
         
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
+        NSLog(@"POPPED IT!");
+        [CCDirector sharedDirector].resume;
+       // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
     }
     return YES;
 }

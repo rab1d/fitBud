@@ -16,6 +16,7 @@
 
 @end
 
+// @synthesize (strong, nonatomic)
 @implementation OauthMachine2
 @synthesize tempToken;
 @synthesize verifierToken;
@@ -150,11 +151,15 @@
     
 }
 
+/*****************************/
+// Grabs FITBIT API Data
+/*****************************/
+
 - (void)apiRequest:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
     if (ticket.didSucceed) {
         NSString *responseBody = [[NSString alloc] initWithData:data
                                                        encoding:NSUTF8StringEncoding];
-        NSLog(responseBody);
+        NSLog(@"My FitBit API Data is %@", responseBody);
         //could use this to implement errors
         NSError* error;
         NSDictionary* json = [NSJSONSerialization

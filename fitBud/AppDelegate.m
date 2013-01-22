@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 // #import "MainMenuLayer.h"
-#import "CCBReader.h"
+// #import "CCBReader.h"
 
 @implementation MyNavigationController
 
@@ -55,8 +55,8 @@
 		// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 		
         
-        //[director runWithScene: [IntroLayer scene]];
-        [director runWithScene: [HelloWorldLayer scene]];
+        [director runWithScene: [IntroLayer scene]];
+        //[director runWithScene: [HelloWorldLayer scene]];
 
 
 	}
