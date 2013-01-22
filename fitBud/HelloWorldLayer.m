@@ -74,12 +74,16 @@
         
         self.isTouchEnabled = YES;
         
+        
+        // Load assets
         [self loadSliderLayer];
         [self loadAvatar];
         [self loadButtons];
         [self loadBackground];
         
-    
+        // give some life to the avatar
+        [self Rock];
+
         
         
 	}
@@ -99,6 +103,10 @@
     [self addChild: self.EggLayer z:0];
     [self.EggLayer loadEgg];
     
+    //self.EggLayer.eggSprite.anchorPoint = ccp(.5,0);
+    
+     //[self.EggLayer eggBounce];
+    //[self Bounce];
 };
 
 
@@ -156,10 +164,13 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     
     
+    //logs where you have touch in the screen
     CCLOG(@"touch happened at x: %0.2f, y: %0.2f", location.x, location.y);
     
-    CCSprite *eggSprite = (CCSprite *)[self.EggLayer getChildByTag:1];
-    if (CGRectContainsPoint([eggSprite boundingBox], location)){
+    //if avatar is touch, calls an animate
+    if (CGRectContainsPoint([self.EggLayer.eggSprite boundingBox], location)){
+        [self Bounce];
+        
         CCLOG(@"touched the egg");
     }
     
@@ -189,7 +200,48 @@
     [super dealloc];
 }
 
+
+/**************************************************/
+// Actions
+/**************************************************/
+
+
+-(void)Bounce{
+    // Bounce at the beginning and at the end
+    
+    id action = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
+    id action2 = [CCRepeat actionWithAction:
+                  [CCSequence actions: [[action copy] autorelease], [action reverse], nil]
+                                      times: 6
+                  ];
+    CCSprite *sprite = self.EggLayer.eggSprite;
+    [sprite runAction:action2];
+    
+    
+
+}
+
+-(void)Rock{
+    id a1 = [CCRotateBy actionWithDuration:1    angle:5];
+    id a2 = [CCRotateBy actionWithDuration:1    angle:-5];
+    id action2 = [CCRepeatForever actionWithAction:
+                  [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], [[a2 copy] autorelease], [a2 reverse], nil]
+                  ];
+    CCSprite *sprite = (CCSprite *)[self.EggLayer getChildByTag:1];
+    [sprite runAction:action2];
+}
+
+/*
+ id a1 = [CCMoveBy actionWithDuration:1 position:ccp(150,0)];
+ id action2 = [CCRepeatForever actionWithAction:
+ [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], nil]
+ ];
+ [sprite runAction:action2];
+ */
+
+
 @end
+
 
 
 

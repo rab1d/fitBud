@@ -10,8 +10,11 @@
 #import "cocos2d.h"
 
 @interface Egg : CCLayer {
+
 }
+@property CCSprite *eggSprite;
 
 - (void) loadEgg;
+- (void) eggBounce;
 
 @end
