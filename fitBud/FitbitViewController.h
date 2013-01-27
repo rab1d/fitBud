@@ -11,6 +11,7 @@
 #import "OauthMachine2.h"
 #import "cocos2d.h"
 #import "AppDelegate.h"
+#import "HelloWorldLayer.h"
 
 
 @interface FitbitViewController : UIViewController <UIWebViewDelegate>{

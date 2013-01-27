@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OAToken.h"
 
 @interface GameData : NSObject
 
--(void)loadUserData;
-
+-(void)plistStartup;
+-(void)writeAccessTokenPlist:(OAToken *)accessToken;
+-(OAToken *)readAcessTokenPlist;
+-(void)writeCaloriesOutPlist:(NSString *)caloriesOut wirteStepsPlist:(NSString *)steps;
+-(double)readPointsPlist;
 @end
+

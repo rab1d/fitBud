@@ -10,7 +10,7 @@
 
 
 @implementation Egg
-@synthesize eggSprite;
+@synthesize eggSprite, hair, mouth, hands, feet;
 
 -(void)loadEgg{
     CGSize winSize = [[CCDirector sharedDirector] winSize];
@@ -31,21 +31,24 @@
 
 -(void)eggBounce{
     
-    // Bounce at the beginning and at the end
-    //id move = [CCMoveBy actionWithDuration:3 position:ccp(350,0)];
-    //id action = [CCEaseBounceInOut actionWithAction:move];
-    
-    //return action;
-    //CCSprite *sprite = (CCSprite *)[self getChildByTag:1];
-    //[sprite runAction: action];
-    
-    
-   // id a1 = [CCRotateBy actionWithDuration:2 angle:10
-    // id action2 = [CCRepeatForever actionWithAction:];
-             //[CCRepeatForever actionWithAction:[CCSequence actions: a1, [a1 reverse], nil]];
-   // [sprite runAction: action2];
+    id action = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
+    id action2 = [CCRepeat actionWithAction:
+                  [CCSequence actions: [[action copy] autorelease], [action reverse], nil]
+                                      times: 6
+                  ];
+    CCSprite *sprite = self.eggSprite;
+    [sprite runAction:action2];
 }
 
+-(void)eggRock{
+    id a1 = [CCRotateBy actionWithDuration:1    angle:5];
+    id a2 = [CCRotateBy actionWithDuration:1    angle:-5];
+    id action2 = [CCRepeatForever actionWithAction:
+                  [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], [[a2 copy] autorelease], [a2 reverse], nil]
+                  ];
+
+    [self.eggSprite runAction:action2];
+}
 
 
 

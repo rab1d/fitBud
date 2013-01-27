@@ -39,7 +39,7 @@
                                                                       realm:nil   // our service provider doesn't specify a realm
                                                           signatureProvider:nil]; // use the default method, HMAC-SHA1
     [request setHTTPMethod:@"POST"];
-   
+    
     ////this is asynchronus method but the methods inside the selectors execute last in the queue it seems.
     OADataFetcher *fetcher = [[OADataFetcher alloc] init];
     [fetcher fetchDataWithRequest:request
@@ -51,7 +51,7 @@
     
     NSData *returnedData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:NULL];
     NSString *responseBody = [[NSString alloc]initWithData:returnedData encoding:NSUTF8StringEncoding];
-    NSLog([NSString stringWithFormat:@"This is the begining %@", responseBody]);
+   // NSLog([NSString stringWithFormat:@"This is the begining %@", responseBody]);
     self.tempToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
     
     
@@ -62,7 +62,7 @@
     if (ticket.didSucceed) {
         NSString *responseBody = [[NSString alloc] initWithData:data
                                                        encoding:NSUTF8StringEncoding];
-        NSLog(responseBody);
+       //NSLog(responseBody);
         ///It seems that it already parses the response here....
         self.tempToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
         ///****this should be a separate method here.
@@ -80,7 +80,7 @@
         //this is the verifier string.
         verifierTokenStr = [URLString substringFromIndex:start.location + start.length];
     }
-    NSLog(verifierTokenStr);
+    //NSLog(verifierTokenStr);
     NSString *tempTokenStr = nil;
     NSRange start2 = [URLString rangeOfString:@"token="];
     if (start2.location != NSNotFound)
@@ -91,7 +91,7 @@
         NSRange end = [tempTokenStr rangeOfString:@"&"];
         tempTokenStr = [tempTokenStr substringToIndex:end.location];
     }
-    NSLog(tempTokenStr);
+   // NSLog(tempTokenStr);
     /*********************************************/
     NSString *oauthConsumerKey = @"a34d9f6d5ec04f308b126f41e6c40bea";
     NSString *oauthConsumerSecret = @"95d8ba531633418ab78dcff622c83355";
@@ -99,7 +99,7 @@
     self.verifierToken = [[OAToken alloc] init];
     self.verifierToken.key= tempTokenStr;
     self.verifierToken.verifier=verifierTokenStr;
-    NSLog(self.verifierToken.verifier);
+    //NSLog(self.verifierToken.verifier);
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:oauthConsumerKey
                                                     secret:oauthConsumerSecret];
     NSURL *url = [NSURL URLWithString:oauthURLString];
@@ -123,8 +123,8 @@
                                                        encoding:NSUTF8StringEncoding];
         ///The access token needs to be saved for the next time.
         self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-        NSLog(responseBody);
-        NSLog(self.accessToken.key);
+       // NSLog(responseBody);
+       // NSLog(self.accessToken.key);
         [self requestJsonData];
     }
 }
@@ -159,13 +159,22 @@
     if (ticket.didSucceed) {
         NSString *responseBody = [[NSString alloc] initWithData:data
                                                        encoding:NSUTF8StringEncoding];
-        NSLog(@"My FitBit API Data is %@", responseBody);
+       // NSLog(@"My FitBit API Data is %@", responseBody);
         //could use this to implement errors
         NSError* error;
         NSDictionary* json = [NSJSONSerialization
                               JSONObjectWithData:data //1
                               options:kNilOptions
                               error:&error];
+        
+        NSString* steps = [[json objectForKey:@"summary"]objectForKey:@"steps"];
+        NSString* caloriesOut = [[json objectForKey:@"summary"]objectForKey:@"caloriesOut"];
+        
+        GameData *gameData = [[GameData alloc]init];
+        [gameData writeCaloriesOutPlist:caloriesOut wirteStepsPlist:steps];
+        [gameData release];
+    
+        
     }
 }
 

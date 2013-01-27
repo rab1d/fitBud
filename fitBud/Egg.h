@@ -13,8 +13,13 @@
 
 }
 @property CCSprite *eggSprite;
+@property CCSprite *hair;
+@property CCSprite *mouth;
+@property CCSprite *hands;
+@property CCSprite *feet;
 
 - (void) loadEgg;
 - (void) eggBounce;
+-(void) eggRock;
 
 @end

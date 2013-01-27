@@ -13,6 +13,7 @@
 #import "cocos2d.h"
 #import "Egg.h"
 #import "Slider.h"
+#import "AvatarLayer.h"
 
 
 
@@ -21,6 +22,8 @@
 }
 
 // @property double experiencePoints;
+@property (nonatomic) Slider *SliderLayer;
+
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;

@@ -13,10 +13,12 @@
 @interface FitbitViewController ()
 @property (strong, nonatomic) OauthMachine2 *oauth;
 @property (strong, nonatomic) UIWebView *myUIWebViewz;
+//@property (strong, nonatomic) HelloWorldLayer mainGame;
 @end
 
 @implementation FitbitViewController
 @synthesize myUIWebViewz;
+//@synthesize mainGame;
 @synthesize oauth=_oauth;
 
 - (void)viewDidLoad
@@ -82,7 +84,6 @@
         AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
         [app.navController popViewControllerAnimated:YES];
         
-        NSLog(@"POPPED IT!");
         [CCDirector sharedDirector].resume;
        // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
     }

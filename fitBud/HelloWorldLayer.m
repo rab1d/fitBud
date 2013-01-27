@@ -12,14 +12,17 @@
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
+#import "FitbitViewController.h"
 
 #pragma mark - HelloWorldLayer
 
 
 @interface HelloWorldLayer ()
+@property (strong,nonatomic) UIWebView *googleView;
 @property (nonatomic) CGSize windowSize;
 @property (nonatomic) Egg *EggLayer;
-@property (nonatomic) Slider *SliderLayer;
+@property (nonatomic) AvatarLayer *myAvatar;
+
 @end
 
 
@@ -32,6 +35,7 @@
 @synthesize windowSize  = _windowSize;
 @synthesize EggLayer = _EggLayer;
 @synthesize SliderLayer = _SliderLayer;
+@synthesize myAvatar = _myAvatar;
 
 
 -(void)setWindowSize:(CGSize)winSize{
@@ -49,6 +53,11 @@
     return _SliderLayer;
 }
 
+-(AvatarLayer *)myAvatar{
+    if(!_myAvatar) _myAvatar = [AvatarLayer node];
+    return _myAvatar;
+}
+
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
 {
@@ -63,6 +72,24 @@
 	
 	// return the scene
 	return scene;
+}
+
+/******************************/
+// Init and On Enter
+/******************************/
+
+/*
+ -(void)onEnter{
+    NSLog(@"You have entered");
+    //self.isTouchEnabled = YES;
+    //[self.EggLayer eggRock];
+
+}
+ */
+
+-(void)onEnterTransitionDidFinish{
+    NSLog(@"Hi");
+    [self.SliderLayer updateSlider];
 }
 
 // on "init" you need to initialize your instance
@@ -82,13 +109,16 @@
         [self loadBackground];
         
         // give some life to the avatar
-        [self Rock];
-
         
+        [self.EggLayer eggRock];
+       // [self schedule:@selector(loadSliderLayer:)];
+
+        //[self.myAvatar avatarBounce];
         
 	}
 	return self;
 }
+
 
 
 
@@ -99,19 +129,22 @@
 
 -(void) loadAvatar{
 
-    //Egg * eggLayer = [Egg node];
-    [self addChild: self.EggLayer z:0];
+    //load egg
+    [self addChild:self.EggLayer z:1];
     [self.EggLayer loadEgg];
     
-    //self.EggLayer.eggSprite.anchorPoint = ccp(.5,0);
-    
-     //[self.EggLayer eggBounce];
-    //[self Bounce];
+    /*
+    // load dog
+    [self addChild: self.myAvatar z:0];
+    [self.myAvatar updateAvatar];
+    */
+
 };
 
 
 -(void) loadSliderLayer{
     //Slider * sliderLayer = [Slider node];
+    NSLog(@"Slider loaded");
     [self addChild: self.SliderLayer z:0];
     [self.SliderLayer updateSlider];
 
@@ -169,14 +202,39 @@
     
     //if avatar is touch, calls an animate
     if (CGRectContainsPoint([self.EggLayer.eggSprite boundingBox], location)){
-        [self Bounce];
         
-        CCLOG(@"touched the egg");
+        [self avatarTouched];
+    } else {
+        [self bgTouched:location];
     }
-    
     
 }
 
+-(void)avatarTouched{
+    [self.EggLayer eggBounce];
+}
+
+-(void)bgTouched:(CGPoint)location{
+    //move egg to the touched object
+    
+    id moveAction = [CCMoveTo actionWithDuration:5 position:location];
+    id bounceAction = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
+    
+    
+    id action2 = [CCRepeat actionWithAction:
+                                [CCSequence actions: [[bounceAction copy] autorelease], [bounceAction reverse], nil]
+                                                    times: 6
+                                ];
+    
+   // id totalAction = [CCSpawn actions:moveAction, action2, nil];
+    
+    [self.EggLayer.eggSprite runAction:moveAction];
+    /*
+    [self.myAvatar.body runAction:moveAction];
+    [self.myAvatar.head runAction:moveAction];
+*/
+    
+}
 
 /**************************************************/
 // Buttons
@@ -185,8 +243,21 @@
 - (void) syncBudWithFitBit: (CCMenuItem  *) menuItem
 {
 	NSLog(@"The sync menu was called");
- 
+    //Add the tableview when the transition is done
+    
+    FitbitViewController *FBView = [[FitbitViewController alloc] init];
+    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+    [app.navController pushViewController:FBView animated:YES];
+    //[CCDirector sharedDirector].pause;
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
+    
+    
+    [self.SliderLayer updateSlider];
+       
 }
+
+
 - (void) getLoggedData: (CCMenuItem  *) menuItem
 {
 	NSLog(@"The log menu was called");
@@ -205,7 +276,7 @@
 // Actions
 /**************************************************/
 
-
+/*
 -(void)Bounce{
     // Bounce at the beginning and at the end
     
@@ -220,6 +291,7 @@
     
 
 }
+ */
 
 -(void)Rock{
     id a1 = [CCRotateBy actionWithDuration:1    angle:5];

@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "HelloWorldLayer.h"
+//#import "HelloWorldLayer.h"
+#import "GameData.h"
 
 @interface Slider : CCLayer {
     
