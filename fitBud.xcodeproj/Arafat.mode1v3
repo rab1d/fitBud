@@ -329,14 +329,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {580, 251}}</string>
+								<string>{{0, 0}, {580, 232}}</string>
 								<key>RubberWindowFrame</key>
 								<string>446 408 788 504 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>251pt</string>
+							<string>232pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -349,14 +349,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 256}, {580, 207}}</string>
+								<string>{{0, 237}, {580, 226}}</string>
 								<key>RubberWindowFrame</key>
 								<string>446 408 788 504 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>207pt</string>
+							<string>226pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -375,9 +375,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>86DA7BD816B4EB3B006DB949</string>
+				<string>869B855C16C9CBDD0075BBAA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>86DA7BD916B4EB3B006DB949</string>
+				<string>869B855D16C9CBDD0075BBAA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -516,7 +516,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>8649373016AE58BB000EE327</string>
-		<string>/Users/Arafat/Desktop/fitBud-1/fitBud.xcodeproj</string>
+		<string>/Users/Arafat/Desktop/fitBud/fitBud.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>446 408 788 504 0 0 1680 1028 </string>
@@ -596,7 +596,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>8649373016AE58BB000EE327</string>
-				<string>86DA7BDA16B4EB3B006DB949</string>
+				<string>869B855E16C9CBDD0075BBAA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Last Sync Date</key>
+	<string>2013-02-17T22:58:15Z</string>
+	<key>Experience Points</key>
+	<string>0</string>
+	<key>Activity Points</key>
+	<string>0</string>
+	<key>Game Data</key>
+	<dict>
+		<key>Active Score</key>
+		<array/>
+		<key>Steps</key>
+		<array/>
+		<key>Calories Out</key>
+		<array/>
+		<key>Date</key>
+		<array/>
+	</dict>
+</dict>
+</plist>

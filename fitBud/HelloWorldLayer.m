@@ -88,7 +88,8 @@
  */
 
 -(void)onEnterTransitionDidFinish{
-    NSLog(@"Hi");
+ 
+
     [self.SliderLayer updateSlider];
 }
 
@@ -132,7 +133,6 @@
     //load egg
     [self addChild:self.EggLayer z:1];
     [self.EggLayer loadEgg];
-    
     /*
     // load dog
     [self addChild: self.myAvatar z:0];

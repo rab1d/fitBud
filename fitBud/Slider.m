@@ -42,7 +42,8 @@
 -(void)updateExperiencePoints{
     GameData *gamedata2 = [[GameData alloc]init];
     self.experiencePoints = [gamedata2 readPointsPlist]/20;
-    NSLog(@"My GameData is: %f", [gamedata2 readPointsPlist]);
+    NSLog(@"My GameData is: %f", self.experiencePoints*20);
+    NSLog(@"My Activity Score is: %f", [gamedata2 readActivityScorePlist]);
     NSLog(@"My Experience Points Are: %f", self.experiencePoints);
     
 }

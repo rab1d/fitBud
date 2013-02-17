@@ -155,27 +155,39 @@
 // Grabs FITBIT API Data
 /*****************************/
 
+- (void)parseAndSendData:(NSDictionary*)jsonData{
+    
+    NSString* steps =           [[jsonData objectForKey:@"summary"] objectForKey:@"steps"];
+    NSString* caloriesOut =     [[jsonData objectForKey:@"summary"] objectForKey:@"caloriesOut"];
+    NSString* activityScore =   [[jsonData objectForKey:@"summary"] objectForKey:@"activityScore"];
+        
+    //posible problem here as the gamedata function should not be called. Improper MVC model
+    GameData *gameData = [[GameData alloc]init];
+    [gameData writeCaloriesOutPlist:caloriesOut
+                    writeStepsPlist:steps
+            writeActivityScorePlist:activityScore];
+    [gameData release];
+    
+}
+
+
 - (void)apiRequest:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
     if (ticket.didSucceed) {
-        NSString *responseBody = [[NSString alloc] initWithData:data
-                                                       encoding:NSUTF8StringEncoding];
-       // NSLog(@"My FitBit API Data is %@", responseBody);
+       // NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+      // NSLog(@"My FitBit API Data is %@", responseBody);
         //could use this to implement errors
+        
+        // Get the Data
         NSError* error;
-        NSDictionary* json = [NSJSONSerialization
-                              JSONObjectWithData:data //1
-                              options:kNilOptions
-                              error:&error];
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data //1
+                                                             options:kNilOptions
+                                                               error:&error];
         
-        NSString* steps = [[json objectForKey:@"summary"]objectForKey:@"steps"];
-        NSString* caloriesOut = [[json objectForKey:@"summary"]objectForKey:@"caloriesOut"];
-        
-        GameData *gameData = [[GameData alloc]init];
-        [gameData writeCaloriesOutPlist:caloriesOut wirteStepsPlist:steps];
-        [gameData release];
-    
-        
+        // Send the Data
+        [self parseAndSendData:json];
+             
     }
+    
 }
 
 @end

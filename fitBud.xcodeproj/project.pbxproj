@@ -10,6 +10,7 @@
 		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
 		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
 		8658CA1A16ADE40A00565CDF /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658CA1916ADE40A00565CDF /* Slider.m */; };
+		86810F7716D14EDA009A5D36 /* fitBudData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86810F7616D14EDA009A5D36 /* fitBudData.plist */; };
 		868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 868FAD7F16B36D9A008C46FE /* AvatarLayer.m */; };
 		868FAD9716B36EE7008C46FE /* angry1.png in Resources */ = {isa = PBXBuildFile; fileRef = 868FAD8116B36EE7008C46FE /* angry1.png */; };
 		868FAD9816B36EE7008C46FE /* arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 868FAD8216B36EE7008C46FE /* arm.png */; };
@@ -234,6 +235,7 @@
 		8643D31B16A779ED001B4665 /* Egg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Egg.m; sourceTree = "<group>"; };
 		8658CA1816ADE40A00565CDF /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
 		8658CA1916ADE40A00565CDF /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
+		86810F7616D14EDA009A5D36 /* fitBudData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fitBudData.plist; sourceTree = "<group>"; };
 		868FAD7E16B36D9A008C46FE /* AvatarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarLayer.h; sourceTree = "<group>"; };
 		868FAD7F16B36D9A008C46FE /* AvatarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarLayer.m; sourceTree = "<group>"; };
 		868FAD8116B36EE7008C46FE /* angry1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry1.png; sourceTree = "<group>"; };
@@ -704,16 +706,13 @@
 		869469B41699EE8C0025CF85 /* fitBud */ = {
 			isa = PBXGroup;
 			children = (
+				86F2B8EF16B267B200992952 /* plist.plist */,
+				86810F7616D14EDA009A5D36 /* fitBudData.plist */,
 				86946B3B1699EE910025CF85 /* AppDelegate.h */,
 				86946B3C1699EE910025CF85 /* AppDelegate.m */,
-				8643D31816A766EF001B4665 /* GameData.m */,
-				86F2B8EF16B267B200992952 /* plist.plist */,
-				8643D31716A766EF001B4665 /* GameData.h */,
-				9A9849E9169CD1BD006FF3B5 /* FitbitViewController.h */,
-				9A9849EA169CD1BD006FF3B5 /* FitbitViewController.m */,
-				9A9849ED169DDBC0006FF3B5 /* OauthMachine2.h */,
-				9A9849EE169DDBC0006FF3B5 /* OauthMachine2.m */,
-				86D0667B169A8B580030E1DB /* Layers */,
+				86F8FC8016CF4BD200A60D3D /* Game Graphics */,
+				86F8FC7F16CF4B3E00A60D3D /* Game Data Manager */,
+				86F8FC7E16CF49E500A60D3D /* FitBit Data Grabber */,
 				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 				869469B51699EE8C0025CF85 /* Resources */,
 				869469CD1699EE8D0025CF85 /* libs */,
@@ -1220,6 +1219,34 @@
 			name = Layers;
 			sourceTree = "<group>";
 		};
+		86F8FC7E16CF49E500A60D3D /* FitBit Data Grabber */ = {
+			isa = PBXGroup;
+			children = (
+				9A9849EA169CD1BD006FF3B5 /* FitbitViewController.m */,
+				9A9849E9169CD1BD006FF3B5 /* FitbitViewController.h */,
+				9A9849ED169DDBC0006FF3B5 /* OauthMachine2.h */,
+				9A9849EE169DDBC0006FF3B5 /* OauthMachine2.m */,
+			);
+			name = "FitBit Data Grabber";
+			sourceTree = "<group>";
+		};
+		86F8FC7F16CF4B3E00A60D3D /* Game Data Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8643D31716A766EF001B4665 /* GameData.h */,
+				8643D31816A766EF001B4665 /* GameData.m */,
+			);
+			name = "Game Data Manager";
+			sourceTree = "<group>";
+		};
+		86F8FC8016CF4BD200A60D3D /* Game Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				86D0667B169A8B580030E1DB /* Layers */,
+			);
+			name = "Game Graphics";
+			sourceTree = "<group>";
+		};
 		9A2BB93F169BCF0F0076B0CA /* Oauth */ = {
 			isa = PBXGroup;
 			children = (
@@ -1412,6 +1439,7 @@
 				868FADD416B4B995008C46FE /* bb5_jj2.png in Resources */,
 				868FADD516B4B995008C46FE /* bb5_jj3.png in Resources */,
 				868FADD616B4B995008C46FE /* bb5_jj4.png in Resources */,
+				86810F7716D14EDA009A5D36 /* fitBudData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
