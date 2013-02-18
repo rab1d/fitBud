@@ -80,7 +80,7 @@
     //NSKeyedArchiver should be used here in the next iteration. It is much cleaner. This allowed custom data types to be store in plists.******************************/
     
     NSString *str=[NSString stringWithFormat:@"oauth_token=%@&oauth_token_secret=%@",accessToken.key, accessToken.secret];
-    NSLog([NSString stringWithFormat:@"This is str %@", str]);
+    //NSLog([NSString stringWithFormat:@"This is str %@", str]);
     NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
     [savedStock setObject:str forKey:@"AccessToken"];
     [savedStock writeToFile:listPath atomically:YES];
@@ -182,9 +182,10 @@
     NSMutableDictionary *plistContents = [self getListContents];
     
     NSDictionary *dataDictionary = [plistContents objectForKey:@"Game Data"];
-    [plistContents release];
+    
     NSLog(@"gd Game data: %@", dataDictionary);
     
+    [plistContents release];
     return dataDictionary;
 }
 
@@ -193,8 +194,8 @@
     NSMutableDictionary *plistContents = [self getListContents];
    
     double expPoints = [[plistContents objectForKey:@"Experience Points"] doubleValue];
-    [plistContents release];
     
+    [plistContents release];
     return expPoints;
 }
 
@@ -204,7 +205,6 @@
     double actPoints = [[plistContents objectForKey:@"Activity Points"] doubleValue];
     [plistContents release];
     NSLog(@"gd activity: %f", actPoints);
-    
     return actPoints;
 }
 
@@ -214,7 +214,6 @@
     NSMutableDictionary *plistContents = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
     
     NSLog(@"gd plist: %@", plistContents);
-    
     return plistContents;
     
 }
