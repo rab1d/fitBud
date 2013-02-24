@@ -166,7 +166,7 @@
     [gameData writeCaloriesOutPlist:caloriesOut
                     writeStepsPlist:steps
             writeActivityScorePlist:activityScore];
-    [gameData release];
+    //[gameData release];
     
 }
 

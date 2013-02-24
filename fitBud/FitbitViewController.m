@@ -99,8 +99,8 @@
 }
 
 - (void)dealloc {
-    [myUIWebViewz release];
-    [super dealloc];
+    //[myUIWebViewz release];
+    //[super dealloc];
 }
 
 @end

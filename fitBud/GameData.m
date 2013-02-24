@@ -46,7 +46,7 @@
 
 // At start
 -(id)init{
-    [super init];
+   // [super init];
     [self plistStartup];
     return self;
 }
@@ -84,7 +84,7 @@
     NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
     [savedStock setObject:str forKey:@"AccessToken"];
     [savedStock writeToFile:listPath atomically:YES];
-    [savedStock release];
+    //[savedStock release];
 }
 
 //this is a method to read the AccessToken from the plist.
@@ -98,7 +98,7 @@
      NSLog([NSString stringWithFormat:@"This is value %@", token.key]);
      NSLog([NSString stringWithFormat:@"This is value %@", token.secret]
      );*/
-    [savedStock release];
+    //[savedStock release];
     return token;
 }
 
@@ -165,7 +165,7 @@
     
     [myPListDictionary setObject:temp  forKey:@"Experience Points"];
     [myPListDictionary writeToFile:listPath atomically:YES];
-    [myPListDictionary release];
+    //[myPListDictionary release];
 }
 
 
@@ -185,7 +185,7 @@
     
     NSLog(@"gd Game data: %@", dataDictionary);
     
-    [plistContents release];
+    //[plistContents release];
     return dataDictionary;
 }
 
@@ -195,7 +195,7 @@
    
     double expPoints = [[plistContents objectForKey:@"Experience Points"] doubleValue];
     
-    [plistContents release];
+    //[plistContents release];
     return expPoints;
 }
 
@@ -203,7 +203,7 @@
     NSMutableDictionary *plistContents = [self getListContents];
     
     double actPoints = [[plistContents objectForKey:@"Activity Points"] doubleValue];
-    [plistContents release];
+    //[plistContents release];
     NSLog(@"gd activity: %f", actPoints);
     return actPoints;
 }

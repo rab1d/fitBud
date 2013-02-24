@@ -222,7 +222,7 @@
     
     
     id action2 = [CCRepeat actionWithAction:
-                                [CCSequence actions: [[bounceAction copy] autorelease], [bounceAction reverse], nil]
+                                [CCSequence actions: [bounceAction copy], [bounceAction reverse], nil]
                                                     times: 6
                                 ];
     
@@ -268,7 +268,7 @@
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
-    [super dealloc];
+
 }
 
 
@@ -297,7 +297,7 @@
     id a1 = [CCRotateBy actionWithDuration:1    angle:5];
     id a2 = [CCRotateBy actionWithDuration:1    angle:-5];
     id action2 = [CCRepeatForever actionWithAction:
-                  [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], [[a2 copy] autorelease], [a2 reverse], nil]
+                  [CCSequence actions: [a1 copy] , [a1 reverse], [a2 copy] , [a2 reverse], nil]
                   ];
     CCSprite *sprite = (CCSprite *)[self.EggLayer getChildByTag:1];
     [sprite runAction:action2];

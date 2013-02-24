@@ -33,7 +33,7 @@
     
     id action = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
     id action2 = [CCRepeat actionWithAction:
-                  [CCSequence actions: [[action copy] autorelease], [action reverse], nil]
+                  [CCSequence actions: [action copy] , [action reverse], nil]
                                       times: 6
                   ];
     CCSprite *sprite = self.eggSprite;
@@ -44,7 +44,7 @@
     id a1 = [CCRotateBy actionWithDuration:1    angle:5];
     id a2 = [CCRotateBy actionWithDuration:1    angle:-5];
     id action2 = [CCRepeatForever actionWithAction:
-                  [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], [[a2 copy] autorelease], [a2 reverse], nil]
+                  [CCSequence actions: [a1 copy], [a1 reverse], [a2 copy] , [a2 reverse], nil]
                   ];
 
     [self.eggSprite runAction:action2];
