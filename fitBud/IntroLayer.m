@@ -90,7 +90,7 @@
     [app.navController pushViewController:FBView animated:YES];
     [CCDirector sharedDirector].pause;
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[MainScene scene] withColor:ccc3(0, 0, 0)]];
     
     NSLog(@"I'M BACK IN THE INTROLAYER");
 

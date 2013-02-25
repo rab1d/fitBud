@@ -9,7 +9,7 @@
 #import "cocos2d.h"
 
 #import "AppDelegate.h"
-#import "IntroLayer.h"
+#import "MainScene.h"
 // #import "MainMenuLayer.h"
 // #import "CCBReader.h"
 
@@ -58,7 +58,7 @@
 /***************/        
         
        // [director runWithScene: [IntroLayer scene]];
-        [director runWithScene: [HelloWorldLayer scene]];
+        [director runWithScene: [MainScene scene]];
 /***************/
 /***************/
 

@@ -9,27 +9,6 @@
 // GameData is designed to receive JSON Data, send it to GameBrain for managing
 // and storing and retrieving information in an internal database
 
-/*
- helpful example code
- 
- //create dictionary of plist
- //NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
- 
- //read from plist
- NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
- NSString *value = [savedStock objectForKey:@"string1"];
- NSLog(@"Count: %@", value);
- 
- ///write to plist
- [savedStock setObject:@"fred" forKey:@"string1"];
- [savedStock writeToFile:listpath atomically:YES];
- 
- //check if write was successful
- NSMutableDictionary *savedStock2 = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
- NSString *value2 = [savedStock2 objectForKey:@"string1"];
- NSLog(@"Count: %@", value2);
- */
-
 #import "GameData.h"
 #import "GameDataBrain.h"
 
@@ -55,7 +34,7 @@
 
 -(void)plistStartup{
     listPath = [[self documentDirectory] stringByAppendingPathComponent:@"fitBudData.plist"];
-    //[self clearListPlistFile:listPath];
+    [self clearListPlistFile:listPath];
     
     if(![[NSFileManager defaultManager] fileExistsAtPath:listPath]){
         
@@ -109,31 +88,43 @@
      writeActivityScorePlist:(double)activityScore
                         date:(NSDate *)syncDate{
     
+    
+    NSLog(@"Cal: %f, Steps: %f, Act: %f, Date: %@", caloriesOut, steps, activityScore, syncDate);
+    
     // Get my pList
-    NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+    NSMutableDictionary *myPListDictionary = [self getListContents];
+    NSMutableDictionary *myGameDataDictionary = [self readGameData];
     NSLog(@"tempGameDataDict 1: %@", myPListDictionary);
     
     // grab calories array and add new calorie
     NSMutableArray *caloriesArray = [self readCaloriesOutArray];
     [caloriesArray addObject:[NSNumber numberWithFloat:caloriesOut]];
+    NSLog(@"Calories Array: %@", caloriesArray);
     
     // grab steps array and add new steps
     NSMutableArray *stepsArray = [self readStepsArray];
     [stepsArray addObject:[NSNumber numberWithFloat:steps]];
+    NSLog(@"Steps Array: %@", stepsArray);
+    
     
     // grab activity score array and add new activity score
     NSMutableArray *scoreArray = [self readActiveScoreArray];
     [scoreArray addObject:[NSNumber numberWithFloat:activityScore]];
+    NSLog(@"Score Array: %@", scoreArray);
+    
     
     // grab date array and add new date
     NSMutableArray *datesArray = [self readDateArray];
     [datesArray addObject:syncDate];
+    NSLog(@"Dates Array: %@", datesArray);
+    
     
     // add arrays to the pList dictionary
-    [myPListDictionary setObject:caloriesArray forKey:@"Calories Out"];
-    [myPListDictionary setObject:stepsArray forKey:@"Steps"];
-    [myPListDictionary setObject:scoreArray forKey:@"Active Score"];
-    [myPListDictionary setObject:datesArray forKey:@"Date"];
+    [myGameDataDictionary setObject:caloriesArray forKey:@"Calories Out"];
+    [myGameDataDictionary setObject:stepsArray forKey:@"Steps"];
+    [myGameDataDictionary setObject:scoreArray forKey:@"Active Score"];
+    [myGameDataDictionary setObject:datesArray forKey:@"Date"];
+    [myPListDictionary setObject:myGameDataDictionary forKey:@"Game Data"];
     
     // save temp Game Data dictionary to pList
     [myPListDictionary writeToFile:listPath atomically:YES];
@@ -181,36 +172,37 @@
 /*****************************/
 #pragma mark Read Data
 
-/*
+
  //reads the plsit and returns the points value
- -(NSDictionary *)readGameData{
- NSMutableDictionary *plistContents = [self getListContents];
- NSDictionary *dataDictionary = [plistContents objectForKey:@"Active Score"];
- NSLog(@"gd Game data: %@", dataDictionary);
- return dataDictionary;
+ -(NSMutableDictionary *)readGameData{
+     NSMutableDictionary *plistContents = [self getListContents];
+     NSMutableDictionary *dataDictionary = [plistContents objectForKey:@"Game Data"];
+     NSLog(@"gd Game data: %@", dataDictionary);
+     return dataDictionary;
  }
- */
+ 
 
 -(NSMutableArray *)readActiveScoreArray{
-    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableDictionary *plistContents = [self readGameData];
     NSMutableArray *scoreArray = [plistContents objectForKey:@"Active Score"];
     return scoreArray;
 }
 
 -(NSMutableArray *)readCaloriesOutArray{
-    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableDictionary *plistContents = [self readGameData];
     NSMutableArray *calArray = [plistContents objectForKey:@"Calories Out"];
+    NSLog(@"Calories Array: %@", calArray);
     return calArray;
 }
 
 -(NSMutableArray *)readStepsArray{
-    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableDictionary *plistContents = [self readGameData];
     NSMutableArray *stepsArray = [plistContents objectForKey:@"Steps"];
     return stepsArray;
 }
 
 -(NSMutableArray *)readDateArray{
-    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableDictionary *plistContents = [self readGameData];
     NSMutableArray *dateArray = [plistContents objectForKey:@"Date"];
     return dateArray;
 }
@@ -286,3 +278,23 @@
 
 @end
 
+/*
+ helpful example code
+ 
+ //create dictionary of plist
+ //NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
+ 
+ //read from plist
+ NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
+ NSString *value = [savedStock objectForKey:@"string1"];
+ NSLog(@"Count: %@", value);
+ 
+ ///write to plist
+ [savedStock setObject:@"fred" forKey:@"string1"];
+ [savedStock writeToFile:listpath atomically:YES];
+ 
+ //check if write was successful
+ NSMutableDictionary *savedStock2 = [[NSMutableDictionary alloc] initWithContentsOfFile: listpath];
+ NSString *value2 = [savedStock2 objectForKey:@"string1"];
+ NSLog(@"Count: %@", value2);
+ */

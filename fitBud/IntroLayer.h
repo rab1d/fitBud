@@ -10,7 +10,7 @@
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 #import "GameData.h"
-#import "HelloWorldLayer.h"
+#import "MainScene.h"
 #import "FitbitViewController.h"
 #import "AppDelegate.h"
 
