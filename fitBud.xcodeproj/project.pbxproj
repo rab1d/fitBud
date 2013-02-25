@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */; };
 		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
 		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
 		8658CA1A16ADE40A00565CDF /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658CA1916ADE40A00565CDF /* Slider.m */; };
@@ -229,6 +230,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8611AD5C16DABDEE00F7A178 /* GameDataBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataBrain.h; sourceTree = "<group>"; };
+		8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataBrain.m; sourceTree = "<group>"; };
 		8643D31716A766EF001B4665 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		8643D31816A766EF001B4665 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
 		8643D31A16A779ED001B4665 /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
@@ -1235,6 +1238,8 @@
 			children = (
 				8643D31716A766EF001B4665 /* GameData.h */,
 				8643D31816A766EF001B4665 /* GameData.m */,
+				8611AD5C16DABDEE00F7A178 /* GameDataBrain.h */,
+				8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */,
 			);
 			name = "Game Data Manager";
 			sourceTree = "<group>";
@@ -1596,6 +1601,7 @@
 				8643D31C16A779ED001B4665 /* Egg.m in Sources */,
 				8658CA1A16ADE40A00565CDF /* Slider.m in Sources */,
 				868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */,
+				8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
