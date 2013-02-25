@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */; };
+		8611ADB416DB14D800F7A178 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611ADB316DB14D800F7A178 /* MainScene.m */; };
+		8611ADB716DB17B100F7A178 /* syncScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611ADB616DB17B000F7A178 /* syncScene.m */; };
 		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
 		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
 		8658CA1A16ADE40A00565CDF /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658CA1916ADE40A00565CDF /* Slider.m */; };
@@ -180,7 +182,6 @@
 		86946B351699EE910025CF85 /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 86946B341699EE910025CF85 /* vec4.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86946B3A1699EE910025CF85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B391699EE910025CF85 /* main.m */; };
 		86946B3D1699EE910025CF85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3C1699EE910025CF85 /* AppDelegate.m */; };
-		86946B401699EE910025CF85 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B3F1699EE910025CF85 /* HelloWorldLayer.m */; };
 		86946B431699EE910025CF85 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86946B421699EE910025CF85 /* IntroLayer.m */; };
 		86D0666C169A8A200030E1DB /* CCControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0664A169A8A200030E1DB /* CCControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86D0666D169A8A200030E1DB /* CCControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D0664C169A8A200030E1DB /* CCControlButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -196,7 +197,6 @@
 		86D06677169A8A200030E1DB /* CCScale9Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06661169A8A200030E1DB /* CCScale9Sprite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86D06678169A8A200030E1DB /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06663169A8A200030E1DB /* Utils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86D06679169A8A200030E1DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 86D06665169A8A200030E1DB /* README.md */; };
-		86F2B8F016B267B200992952 /* plist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86F2B8EF16B267B200992952 /* plist.plist */; };
 		9A2BB91C169B96540076B0CA /* sync-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91A169B96540076B0CA /* sync-button-pressed.png */; };
 		9A2BB91D169B96540076B0CA /* sync-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91B169B96540076B0CA /* sync-button.png */; };
 		9A2BB920169B96600076B0CA /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91F169B96600076B0CA /* slider.png */; };
@@ -232,6 +232,10 @@
 /* Begin PBXFileReference section */
 		8611AD5C16DABDEE00F7A178 /* GameDataBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataBrain.h; sourceTree = "<group>"; };
 		8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataBrain.m; sourceTree = "<group>"; };
+		8611ADB216DB14D800F7A178 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
+		8611ADB316DB14D800F7A178 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
+		8611ADB516DB17AF00F7A178 /* syncScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syncScene.h; sourceTree = "<group>"; };
+		8611ADB616DB17B000F7A178 /* syncScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = syncScene.m; sourceTree = "<group>"; };
 		8643D31716A766EF001B4665 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		8643D31816A766EF001B4665 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
 		8643D31A16A779ED001B4665 /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
@@ -549,8 +553,6 @@
 		86946B391699EE910025CF85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86946B3B1699EE910025CF85 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		86946B3C1699EE910025CF85 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		86946B3E1699EE910025CF85 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		86946B3F1699EE910025CF85 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		86946B411699EE910025CF85 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		86946B421699EE910025CF85 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		86D06649169A8A200030E1DB /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
@@ -597,7 +599,6 @@
 		86D5D80016AE5A3D00122C2C /* OAProblem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAProblem.h; sourceTree = "<group>"; };
 		86D5D80116AE5A3D00122C2C /* OAProblem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAProblem.m; sourceTree = "<group>"; };
 		86D5D80216AE5A3D00122C2C /* OARequestParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OARequestParameter.h; sourceTree = "<group>"; };
-		86F2B8EF16B267B200992952 /* plist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = plist.plist; sourceTree = "<group>"; };
 		9A2BB91A169B96540076B0CA /* sync-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button-pressed.png"; path = "Resources/sync-button-pressed.png"; sourceTree = "<group>"; };
 		9A2BB91B169B96540076B0CA /* sync-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button.png"; path = "Resources/sync-button.png"; sourceTree = "<group>"; };
 		9A2BB91F169B96600076B0CA /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slider.png; path = Resources/slider.png; sourceTree = "<group>"; };
@@ -709,8 +710,6 @@
 		869469B41699EE8C0025CF85 /* fitBud */ = {
 			isa = PBXGroup;
 			children = (
-				86F2B8EF16B267B200992952 /* plist.plist */,
-				86810F7616D14EDA009A5D36 /* fitBudData.plist */,
 				86946B3B1699EE910025CF85 /* AppDelegate.h */,
 				86946B3C1699EE910025CF85 /* AppDelegate.m */,
 				86F8FC8016CF4BD200A60D3D /* Game Graphics */,
@@ -1208,10 +1207,8 @@
 		86D0667B169A8B580030E1DB /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				86946B411699EE910025CF85 /* IntroLayer.h */,
 				86946B421699EE910025CF85 /* IntroLayer.m */,
-				86946B3E1699EE910025CF85 /* HelloWorldLayer.h */,
-				86946B3F1699EE910025CF85 /* HelloWorldLayer.m */,
+				86946B411699EE910025CF85 /* IntroLayer.h */,
 				8643D31A16A779ED001B4665 /* Egg.h */,
 				8643D31B16A779ED001B4665 /* Egg.m */,
 				868FAD7E16B36D9A008C46FE /* AvatarLayer.h */,
@@ -1236,6 +1233,7 @@
 		86F8FC7F16CF4B3E00A60D3D /* Game Data Manager */ = {
 			isa = PBXGroup;
 			children = (
+				86810F7616D14EDA009A5D36 /* fitBudData.plist */,
 				8643D31716A766EF001B4665 /* GameData.h */,
 				8643D31816A766EF001B4665 /* GameData.m */,
 				8611AD5C16DABDEE00F7A178 /* GameDataBrain.h */,
@@ -1247,6 +1245,10 @@
 		86F8FC8016CF4BD200A60D3D /* Game Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				8611ADB216DB14D800F7A178 /* MainScene.h */,
+				8611ADB316DB14D800F7A178 /* MainScene.m */,
+				8611ADB516DB17AF00F7A178 /* syncScene.h */,
+				8611ADB616DB17B000F7A178 /* syncScene.m */,
 				86D0667B169A8B580030E1DB /* Layers */,
 			);
 			name = "Game Graphics";
@@ -1401,7 +1403,6 @@
 				9A2BB928169B9D7B0076B0CA /* log-button.png in Resources */,
 				9A2BB966169BCF260076B0CA /* OATestServer.rb in Resources */,
 				9A3CAEDB169BEE7E001F312A /* Default-568h@2x.png in Resources */,
-				86F2B8F016B267B200992952 /* plist.plist in Resources */,
 				868FAD9716B36EE7008C46FE /* angry1.png in Resources */,
 				868FAD9816B36EE7008C46FE /* arm.png in Resources */,
 				868FAD9916B36EE7008C46FE /* body_fit1.png in Resources */,
@@ -1562,7 +1563,6 @@
 				86946B351699EE910025CF85 /* vec4.c in Sources */,
 				86946B3A1699EE910025CF85 /* main.m in Sources */,
 				86946B3D1699EE910025CF85 /* AppDelegate.m in Sources */,
-				86946B401699EE910025CF85 /* HelloWorldLayer.m in Sources */,
 				86946B431699EE910025CF85 /* IntroLayer.m in Sources */,
 				86D0666C169A8A200030E1DB /* CCControl.m in Sources */,
 				86D0666D169A8A200030E1DB /* CCControlButton.m in Sources */,
@@ -1602,6 +1602,8 @@
 				8658CA1A16ADE40A00565CDF /* Slider.m in Sources */,
 				868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */,
 				8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */,
+				8611ADB416DB14D800F7A178 /* MainScene.m in Sources */,
+				8611ADB716DB17B100F7A178 /* syncScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
