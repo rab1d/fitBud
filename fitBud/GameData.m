@@ -31,6 +31,7 @@
  */
 
 #import "GameData.h"
+#import "GameDataBrain.h"
 
 @interface GameData()
 @property (strong,nonatomic) NSString *listPath;
@@ -46,7 +47,7 @@
 
 // At start
 -(id)init{
-   // [super init];
+    // [super init];
     [self plistStartup];
     return self;
 }
@@ -58,12 +59,12 @@
     
     if(![[NSFileManager defaultManager] fileExistsAtPath:listPath]){
         
-        [[NSFileManager defaultManager]copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"plist" ofType:@"plist"] toPath:listPath error:nil];
+        [[NSFileManager defaultManager]copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"fitBudData" ofType:@"plist"] toPath:listPath error:nil];
         
     }
 }
 
- 
+
 
 -(NSString *)documentDirectory{
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
@@ -71,55 +72,28 @@
 
 
 /*****************************/
-// Access Token Read Write
-/*****************************/
-#pragma mark Access Token Read/Write
-
--(void)writeAccessTokenPlist:(OAToken *)accessToken{
-    
-    //NSKeyedArchiver should be used here in the next iteration. It is much cleaner. This allowed custom data types to be store in plists.******************************/
-    
-    NSString *str=[NSString stringWithFormat:@"oauth_token=%@&oauth_token_secret=%@",accessToken.key, accessToken.secret];
-    //NSLog([NSString stringWithFormat:@"This is str %@", str]);
-    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
-    [savedStock setObject:str forKey:@"AccessToken"];
-    [savedStock writeToFile:listPath atomically:YES];
-    //[savedStock release];
-}
-
-//this is a method to read the AccessToken from the plist.
--(OAToken *)readAcessTokenPlist{
-    //NSKeyedUnarchiver will be used here to retrieve the original object.
-    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
-    NSString *value = [savedStock objectForKey:@"AccessToken"];
-    OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:value];
-    /*
-     NSLog([NSString stringWithFormat:@"This is value %@", value]);
-     NSLog([NSString stringWithFormat:@"This is value %@", token.key]);
-     NSLog([NSString stringWithFormat:@"This is value %@", token.secret]
-     );*/
-    //[savedStock release];
-    return token;
-}
-
-/*****************************/
 // PList Management: Receive Data
 /*****************************/
 #pragma mark Receive Data
 
--(void)receiveDataWithDate:(NSDate *)syncDate caloriesOut:(NSString *)caloriesOut steps:(NSString *)numSteps activeScore:(NSString *)activeScore{
+-(void)receiveDataWithDate:(NSDate *)syncDate caloriesOut:(double)caloriesOut steps:(double)numSteps activeScore:(double)activeScore{
     
     // once received we:
-        // 1. call the write methods for calories, steps, and activeScore and Date
+    // 1. call the write methods for calories, steps, and activeScore and Date
+    [self writeCaloriesOutPlist:caloriesOut writeStepsPlist:numSteps writeActivityScorePlist:activeScore date:syncDate];
     
-        // 2. pass the calories, step and active score data to another class called GameDataBrain
+    // 2. pass the calories, step and active score data to another class called GameDataBrain
+    GameDataBrain* myGDBrain = [[GameDataBrain alloc] init];
+    [myGDBrain calculateActivityPoints:[self readActiveScoreArray]];
+    [myGDBrain calculateExperiencePoints:[self readActiveScoreArray]];
     
-        // 3. GameDataBrain will use the data to modify the experiencePoints and the activityPoints properties
-                    // self.activityPoints = sum(activeScore of last three daays
-                    // self.experiencePoints = sum(all activeScore + sum all steps + sum all calories)
+    // 3. GameDataBrain will use the data to modify the experiencePoints and the activityPoints properties
     
-        // 4. We write self.activityPoints and self.experiencePoints to the pList, and update the Last Sync Date
     
+    // 4. We write self.activityPoints and self.experiencePoints to the pList, and update the Last Sync Date
+    [self writeExperiencePoints:self.experiencePoints];
+    [self writeActivityPoints:self.activityPoints];
+    [self writeSyncDate:[NSDate date]];
     
 }
 
@@ -130,36 +104,48 @@
 #pragma mark Write Data
 
 // Write Steps, Calories and Activity Score to a PList
--(void)writeCaloriesOutPlist:(NSString *)caloriesOut writeStepsPlist:(NSString *)steps writeActivityScorePlist:(NSString *)activityScore{
+-(void)writeCaloriesOutPlist:(double)caloriesOut
+             writeStepsPlist:(double)steps
+     writeActivityScorePlist:(double)activityScore
+                        date:(NSDate *)syncDate{
     
-    /*
-     //possible future improvement could be to have a dictionary as a class property.
-     NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
-     
-     //Get experiencePoints
-     self.experiencePoints = [self experiencePointCalculator];
-     
-     //Get activityPoints
-     self.activityPoints = [self activityPointCalculator];
-     
-     
-     //%d is for ints
-     
-     NSString *temp = [NSString stringWithFormat:@"%d",self.experiencePoints];
-     NSString *temp2 = [NSString stringWithFormat:@"%d",self.activityPoints];
-     
-     [myPListDictionary setObject:temp forKey:@"Points"];
-     [myPListDictionary setObject:temp2 forKey:@"ActivityScore"];
-     [myPListDictionary writeToFile:listPath atomically:YES];
-     [myPListDictionary release];
-     
-     */
+    // Get my pList
+    NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+    NSLog(@"tempGameDataDict 1: %@", myPListDictionary);
+    
+    // grab calories array and add new calorie
+    NSMutableArray *caloriesArray = [self readCaloriesOutArray];
+    [caloriesArray addObject:[NSNumber numberWithFloat:caloriesOut]];
+    
+    // grab steps array and add new steps
+    NSMutableArray *stepsArray = [self readStepsArray];
+    [stepsArray addObject:[NSNumber numberWithFloat:steps]];
+    
+    // grab activity score array and add new activity score
+    NSMutableArray *scoreArray = [self readActiveScoreArray];
+    [scoreArray addObject:[NSNumber numberWithFloat:activityScore]];
+    
+    // grab date array and add new date
+    NSMutableArray *datesArray = [self readDateArray];
+    [datesArray addObject:syncDate];
+    
+    // add arrays to the pList dictionary
+    [myPListDictionary setObject:caloriesArray forKey:@"Calories Out"];
+    [myPListDictionary setObject:stepsArray forKey:@"Steps"];
+    [myPListDictionary setObject:scoreArray forKey:@"Active Score"];
+    [myPListDictionary setObject:datesArray forKey:@"Date"];
+    
+    // save temp Game Data dictionary to pList
+    [myPListDictionary writeToFile:listPath atomically:YES];
+    
+    NSLog(@"tempGameDataDict 2: %@", myPListDictionary);
+    
 }
 
 -(void)writeExperiencePoints:(double)experiencePoints{
-    
-    
+    // Get my pList
     NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+    
     
     NSString *temp = [NSString stringWithFormat:@"%f", experiencePoints];
     
@@ -169,6 +155,25 @@
 }
 
 
+-(void)writeActivityPoints:(double)activityPoints{
+    NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+    
+    NSString *temp = [NSString stringWithFormat:@"%f", activityPoints];
+    
+    [myPListDictionary setObject:temp  forKey:@"Activity Points"];
+    [myPListDictionary writeToFile:listPath atomically:YES];
+    //[myPListDictionary release];
+    
+}
+
+-(void)writeSyncDate:(NSDate *)date{
+    NSMutableDictionary *myPListDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+    
+    [myPListDictionary setObject:date  forKey:@"Last Sync Date"];
+    [myPListDictionary writeToFile:listPath atomically:YES];
+    //[myPListDictionary release];
+    
+}
 
 
 /*****************************/
@@ -176,35 +181,51 @@
 /*****************************/
 #pragma mark Read Data
 
+/*
+ //reads the plsit and returns the points value
+ -(NSDictionary *)readGameData{
+ NSMutableDictionary *plistContents = [self getListContents];
+ NSDictionary *dataDictionary = [plistContents objectForKey:@"Active Score"];
+ NSLog(@"gd Game data: %@", dataDictionary);
+ return dataDictionary;
+ }
+ */
 
-//reads the plsit and returns the points value
--(NSDictionary *)readGameData{
+-(NSMutableArray *)readActiveScoreArray{
     NSMutableDictionary *plistContents = [self getListContents];
-    
-    NSDictionary *dataDictionary = [plistContents objectForKey:@"Game Data"];
-    
-    NSLog(@"gd Game data: %@", dataDictionary);
-    
-    //[plistContents release];
-    return dataDictionary;
+    NSMutableArray *scoreArray = [plistContents objectForKey:@"Active Score"];
+    return scoreArray;
+}
+
+-(NSMutableArray *)readCaloriesOutArray{
+    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableArray *calArray = [plistContents objectForKey:@"Calories Out"];
+    return calArray;
+}
+
+-(NSMutableArray *)readStepsArray{
+    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableArray *stepsArray = [plistContents objectForKey:@"Steps"];
+    return stepsArray;
+}
+
+-(NSMutableArray *)readDateArray{
+    NSMutableDictionary *plistContents = [self getListContents];
+    NSMutableArray *dateArray = [plistContents objectForKey:@"Date"];
+    return dateArray;
 }
 
 
 -(double)readExperiencePoints{
     NSMutableDictionary *plistContents = [self getListContents];
-   
     double expPoints = [[plistContents objectForKey:@"Experience Points"] doubleValue];
-    
-    //[plistContents release];
     return expPoints;
 }
 
 -(double)readActivityPoints{
     NSMutableDictionary *plistContents = [self getListContents];
-    
     double actPoints = [[plistContents objectForKey:@"Activity Points"] doubleValue];
-    //[plistContents release];
-    NSLog(@"gd activity: %f", actPoints);
+    // NSLog(@"gd activity: %f", actPoints);
     return actPoints;
 }
 
@@ -213,43 +234,10 @@
 -(NSMutableDictionary *)getListContents{
     NSMutableDictionary *plistContents = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
     
-    NSLog(@"gd plist: %@", plistContents);
+    // NSLog(@"gd plist: %@", plistContents);
     return plistContents;
     
 }
-
-
-/*****************************/
-// Brain Functionality
-/*****************************/
-#pragma mark Brain Stuff
-// this is where we either send stuff to the GameDataBrain
-// or implement the methods our self.
-
-
-/*
--(double)activityPointCalculator{
-    // Sum the past 3 days of activity
-    
-    
-    return 0;
-}
-
--(double)experiencePointCalculatorWith:(NSString *)caloriesOut (NSString *):steps (NSString *):activityScore {
-    // Sum all calories, steps and activity
-    
-    
-    //remove the pointer here because we are adding.
-    //add the previous points to the current one.
-    NSInteger intCaloriesOut = [caloriesOut intValue];
-    NSInteger intSteps = [steps intValue];
-    NSInteger intActivityScore = [activityScore intValue];
-    
-    intCaloriesOut+=intSteps;
-    return 0;
-}
-
-*/
 
 
 #pragma mark Clear pList
@@ -262,6 +250,39 @@
     
 }
 
-
+/*****************************/
+// Access Token Read Write
+/*****************************/
+#pragma mark Access Token Read/Write
+/*
+ -(void)writeAccessTokenPlist:(OAToken *)accessToken{
+ 
+ //NSKeyedArchiver should be used here in the next iteration. It is much cleaner. This allowed custom data types to be store in plists.
+ 
+ NSString *str=[NSString stringWithFormat:@"oauth_token=%@&oauth_token_secret=%@",accessToken.key, accessToken.secret];
+ //NSLog([NSString stringWithFormat:@"This is str %@", str]);
+ NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+ [savedStock setObject:str forKey:@"AccessToken"];
+ [savedStock writeToFile:listPath atomically:YES];
+ //[savedStock release];
+ }
+ 
+ //this is a method to read the AccessToken from the plist.
+ -(OAToken *)readAcessTokenPlist{
+ //NSKeyedUnarchiver will be used here to retrieve the original object.
+ NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: listPath];
+ NSString *value = [savedStock objectForKey:@"AccessToken"];
+ OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:value];
+ 
+ // NSLog([NSString stringWithFormat:@"This is value %@", value]);
+ // NSLog([NSString stringWithFormat:@"This is value %@", token.key]);
+ // NSLog([NSString stringWithFormat:@"This is value %@", token.secret]
+ // );
+ //[savedStock release];
+ return token;
+ }
+ 
+ */
 
 @end
+

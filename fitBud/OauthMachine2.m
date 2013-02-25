@@ -157,15 +157,13 @@
 
 - (void)parseAndSendData:(NSDictionary*)jsonData{
     
-    NSString* steps =           [[jsonData objectForKey:@"summary"] objectForKey:@"steps"];
-    NSString* caloriesOut =     [[jsonData objectForKey:@"summary"] objectForKey:@"caloriesOut"];
-    NSString* activityScore =   [[jsonData objectForKey:@"summary"] objectForKey:@"activityScore"];
+    double steps =           [[[jsonData objectForKey:@"summary"] objectForKey:@"steps"] doubleValue];
+    double caloriesOut =     [[[jsonData objectForKey:@"summary"] objectForKey:@"caloriesOut"] doubleValue];
+    double activityScore =   [[[jsonData objectForKey:@"summary"] objectForKey:@"activityScore"] doubleValue];
         
     //posible problem here as the gamedata function should not be called. Improper MVC model
     GameData *gameData = [[GameData alloc]init];
-    [gameData writeCaloriesOutPlist:caloriesOut
-                    writeStepsPlist:steps
-            writeActivityScorePlist:activityScore];
+    [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
     //[gameData release];
     
 }

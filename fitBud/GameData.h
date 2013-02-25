@@ -7,27 +7,41 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OAToken.h"
+// #import "OAToken.h"
 
 @interface GameData : NSObject
 @property (nonatomic) double experiencePoints;
 @property (nonatomic) double activityPoints;
 
-// Access Token Read/Write
--(void)writeAccessTokenPlist:(OAToken *)accessToken;
--(OAToken *)readAcessTokenPlist;
+
 
 // Get Data
--(void)receiveDataWithDate:(NSDate *)syncDate caloriesOut:(NSString *)caloriesOut steps:(NSString *)numSteps activeScore:(NSString *)activeScore;
+-(void)receiveDataWithDate:(NSDate *)syncDate
+               caloriesOut:(double)caloriesOut
+                     steps:(double)numSteps
+               activeScore:(double)activeScore;
 
+
+
+/*
 // Read Data
--(NSDictionary *)readGameData;
 -(double)readExperiencePoints;
 -(double)readActivityPoints;
 
+
 // Write Data
 -(void)writeExperiencePoints:(double)experiencePoints;
--(void)writeCaloriesOutPlist:(NSString *)caloriesOut writeStepsPlist:(NSString *)steps writeActivityScorePlist:(NSString *)activityScore;
+-(void)writeActivityPoints:(double)activityPoints;
+
+-(void)writeCaloriesOutPlist:(double)caloriesOut
+             writeStepsPlist:(double)steps
+     writeActivityScorePlist:(double)activityScore
+                        date:(NSDate *)syncDate;
+*/
+
+// Access Token Read/Write
+// -(void)writeAccessTokenPlist:(OAToken *)accessToken;
+// -(OAToken *)readAcessTokenPlist;
 
 
 @end
