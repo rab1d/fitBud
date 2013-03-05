@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */; };
 		8611ADB416DB14D800F7A178 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611ADB316DB14D800F7A178 /* MainScene.m */; };
-		8611ADB716DB17B100F7A178 /* syncScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8611ADB616DB17B000F7A178 /* syncScene.m */; };
 		8643D31916A766F0001B4665 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31816A766EF001B4665 /* GameData.m */; };
-		8643D31C16A779ED001B4665 /* Egg.m in Sources */ = {isa = PBXBuildFile; fileRef = 8643D31B16A779ED001B4665 /* Egg.m */; };
 		8658CA1A16ADE40A00565CDF /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8658CA1916ADE40A00565CDF /* Slider.m */; };
 		86810F7716D14EDA009A5D36 /* fitBudData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86810F7616D14EDA009A5D36 /* fitBudData.plist */; };
 		868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 868FAD7F16B36D9A008C46FE /* AvatarLayer.m */; };
@@ -234,12 +232,8 @@
 		8611AD5D16DABDEE00F7A178 /* GameDataBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataBrain.m; sourceTree = "<group>"; };
 		8611ADB216DB14D800F7A178 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
 		8611ADB316DB14D800F7A178 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
-		8611ADB516DB17AF00F7A178 /* syncScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syncScene.h; sourceTree = "<group>"; };
-		8611ADB616DB17B000F7A178 /* syncScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = syncScene.m; sourceTree = "<group>"; };
 		8643D31716A766EF001B4665 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		8643D31816A766EF001B4665 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
-		8643D31A16A779ED001B4665 /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
-		8643D31B16A779ED001B4665 /* Egg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Egg.m; sourceTree = "<group>"; };
 		8658CA1816ADE40A00565CDF /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
 		8658CA1916ADE40A00565CDF /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slider.m; sourceTree = "<group>"; };
 		86810F7616D14EDA009A5D36 /* fitBudData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fitBudData.plist; sourceTree = "<group>"; };
@@ -287,6 +281,7 @@
 		868FADC016B4B993008C46FE /* bb5_jj2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bb5_jj2.png; sourceTree = "<group>"; };
 		868FADC116B4B993008C46FE /* bb5_jj3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bb5_jj3.png; sourceTree = "<group>"; };
 		868FADC216B4B994008C46FE /* bb5_jj4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bb5_jj4.png; sourceTree = "<group>"; };
+		8692DBBD16DC77170017FE55 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8694699E1699EE8C0025CF85 /* fitBud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fitBud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869469A21699EE8C0025CF85 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		869469A41699EE8C0025CF85 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -715,7 +710,6 @@
 				86F8FC8016CF4BD200A60D3D /* Game Graphics */,
 				86F8FC7F16CF4B3E00A60D3D /* Game Data Manager */,
 				86F8FC7E16CF49E500A60D3D /* FitBit Data Grabber */,
-				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 				869469B51699EE8C0025CF85 /* Resources */,
 				869469CD1699EE8D0025CF85 /* libs */,
 				86946B371699EE910025CF85 /* Supporting Files */,
@@ -1207,12 +1201,9 @@
 		86D0667B169A8B580030E1DB /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				86946B421699EE910025CF85 /* IntroLayer.m */,
-				86946B411699EE910025CF85 /* IntroLayer.h */,
-				8643D31A16A779ED001B4665 /* Egg.h */,
-				8643D31B16A779ED001B4665 /* Egg.m */,
 				868FAD7E16B36D9A008C46FE /* AvatarLayer.h */,
 				868FAD7F16B36D9A008C46FE /* AvatarLayer.m */,
+				8692DBBD16DC77170017FE55 /* Constants.h */,
 				8658CA1816ADE40A00565CDF /* Slider.h */,
 				8658CA1916ADE40A00565CDF /* Slider.m */,
 			);
@@ -1226,6 +1217,7 @@
 				9A9849E9169CD1BD006FF3B5 /* FitbitViewController.h */,
 				9A9849ED169DDBC0006FF3B5 /* OauthMachine2.h */,
 				9A9849EE169DDBC0006FF3B5 /* OauthMachine2.m */,
+				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 			);
 			name = "FitBit Data Grabber";
 			sourceTree = "<group>";
@@ -1247,8 +1239,8 @@
 			children = (
 				8611ADB216DB14D800F7A178 /* MainScene.h */,
 				8611ADB316DB14D800F7A178 /* MainScene.m */,
-				8611ADB516DB17AF00F7A178 /* syncScene.h */,
-				8611ADB616DB17B000F7A178 /* syncScene.m */,
+				86946B421699EE910025CF85 /* IntroLayer.m */,
+				86946B411699EE910025CF85 /* IntroLayer.h */,
 				86D0667B169A8B580030E1DB /* Layers */,
 			);
 			name = "Game Graphics";
@@ -1598,12 +1590,10 @@
 				9A9849EB169CD1BD006FF3B5 /* FitbitViewController.m in Sources */,
 				9A9849EF169DDBC0006FF3B5 /* OauthMachine2.m in Sources */,
 				8643D31916A766F0001B4665 /* GameData.m in Sources */,
-				8643D31C16A779ED001B4665 /* Egg.m in Sources */,
 				8658CA1A16ADE40A00565CDF /* Slider.m in Sources */,
 				868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */,
 				8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */,
 				8611ADB416DB14D800F7A178 /* MainScene.m in Sources */,
-				8611ADB716DB17B100F7A178 /* syncScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
