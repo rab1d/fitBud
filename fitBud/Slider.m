@@ -28,7 +28,7 @@
         xPos = xPos - 300 + startPoint.x;
     }
     
-    slider.position = ccp(xPos, startPoint.y);
+    slider.position = ccp(xPos + startPoint.x, startPoint.y);
 
     NSLog(@"The Slider Position is %f", slider.position.x);
     
