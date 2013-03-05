@@ -12,6 +12,8 @@
 @implementation syncScene
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
+
+/*
 +(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
@@ -26,10 +28,11 @@
 	// return the scene
 	return scene;
 }
+ */
 
 -(id)init{
     if( (self=[super init]) ) {
-        [self loadBackground];
+        //[self loadBackground];
         [self loadButtons];
     }
     
@@ -63,16 +66,19 @@
 
 
 -(void)doLazySync{
-    double steps =           0;
-    double caloriesOut =     0;
-    double activityScore =   0;
+    double steps =           10;
+    double caloriesOut =     10;
+    double activityScore =   10;
     
     //posible problem here as the gamedata function should not be called. Improper MVC model
     GameData *gameData = [[GameData alloc]init];
     [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
     //[gameData release];
     
+    NSLog(@"syncScene||doLazySync. experiencePoints: %f, activityPoints: %f", [gameData sendExperiencePoints], [gameData sendActivityPoints]);
+    
     [self goBackToMainScene];
+    
 }
 
 -(void)doMediumSync{
@@ -84,26 +90,32 @@
     GameData *gameData = [[GameData alloc]init];
     [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
     //[gameData release];
-    
+    NSLog(@"syncScene||doMediumSync. experiencePoints: %f, activityPoints: %f", [gameData sendExperiencePoints], [gameData sendActivityPoints]);
     [self goBackToMainScene];
+  
 
 }
 
 -(void)doMarathonerSync{
     double steps =           1500;
     double caloriesOut =     750;
-    double activityScore =   100;
+    double activityScore =   10000;
     
     //posible problem here as the gamedata function should not be called. Improper MVC model
     GameData *gameData = [[GameData alloc]init];
     [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
     //[gameData release];
-
+    NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", [gameData sendExperiencePoints], [gameData sendActivityPoints]);
     [self goBackToMainScene];
+    
 
 }
 
 -(void)doFitBitSync{
+    GameData *gameData = [[GameData alloc]init];
+    [gameData syncGameData];
+
+    /*
     FitbitViewController *FBView = [[FitbitViewController alloc] init];
     AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
     [app.navController pushViewController:FBView animated:YES];
@@ -112,8 +124,11 @@
     [self goBackToMainScene];
     
     //[self.SliderLayer updateSlider];
-    
+    */
+        NSLog(@"syncScene||doFitBitSync. experiencePoints: %f, activityPoints: %f", [gameData sendExperiencePoints], [gameData sendActivityPoints]);
 }
+
+
 
 -(void)goBackToMainScene{
      [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[MainScene scene] withColor:ccc3(0, 0, 0)]];

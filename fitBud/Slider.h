@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-//#import "HelloWorldLayer.h"
-#import "GameData.h"
+// #import "MainScene.h"
+// #import "HelloWorldLayer.h"
+// #import "GameData.h"
 
 @interface Slider : CCLayer {
     
@@ -18,6 +19,6 @@
 
 @property (nonatomic) double experiencePoints;
 
--(void)updateSlider;
+-(void)updateSlider:(double)experiencePoints;
 
 @end

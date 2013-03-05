@@ -18,5 +18,8 @@
     IBOutlet UIWebView *myUIWebViewz;
 }
 
+@property NSDictionary *dataDictionary;
+-(NSDictionary*)returnDataDictionary;
+
 
 @end

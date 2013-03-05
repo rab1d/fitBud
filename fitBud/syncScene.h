@@ -19,6 +19,9 @@
     
 }
 
-+(CCScene *) scene;
+//+(CCScene *) scene;
+-(double)returnExperiencePoints;
+-(double)returnActivityPoints;
+
 
 @end

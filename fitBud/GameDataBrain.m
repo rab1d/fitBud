@@ -16,20 +16,22 @@
 @implementation GameDataBrain
 @synthesize myGameData = _myGameData;
 
--(void)calculateActivityPoints:(NSArray *)activeScoreArray{
+-(double)calculateActivityPoints:(NSArray *)activeScoreArray{
     NSMutableArray *temp = [activeScoreArray mutableCopy];
+    double result;
+    NSLog(@"DataBrain || calcActivityPoints. Received activeScoreArray: %@", activeScoreArray);
     
     // self.activityPoints = sum(activeScore of last three days
     if ([activeScoreArray count]==0){
-        self.myGameData.activityPoints = 0;
+        result = 0;
     } else if ([activeScoreArray count] == 1){
-        self.myGameData.activityPoints = [[temp lastObject] doubleValue];
+        result = [[temp lastObject] doubleValue];
     } else if ([activeScoreArray count] == 2){
         double first = [[temp lastObject] doubleValue];
         [temp removeLastObject];
         double second = [[temp lastObject] doubleValue];
         
-        self.myGameData.activityPoints = first + second;
+        result = first + second;
     } else {
         double first = [[temp lastObject] doubleValue];
         [temp removeLastObject];
@@ -37,19 +39,22 @@
         [temp removeLastObject];
         double third = [[temp lastObject] doubleValue];
         
-        self.myGameData.activityPoints = first + second + third;
+        result = first + second + third;
     }
+    
+    return result;
+    NSLog(@"DataBrain || calcActivityPoints. Calculated Activity Points = %f", result);
 }
 
 
--(void)calculateExperiencePoints:(NSArray *)activeScoreArray{
+-(double)calculateExperiencePoints:(NSArray *)activeScoreArray{
     NSInteger sum = 0;
     for (NSNumber *num in activeScoreArray)
     {
         sum += [num doubleValue];
     }
     
-    self.myGameData.experiencePoints = sum;
+    return sum;
 }
 
 @end

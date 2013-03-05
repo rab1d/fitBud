@@ -8,7 +8,24 @@
 
 #import "AvatarLayerBrain.h"
 
+@interface AvatarLayerBrain()
+@property double experiencePoints;
+@property double activityPoints;
+@property int level;
 
-@implementation AvatarLayerBrain
+@end
+
+@implementation AvatarLayerBrain;
+//@synthesize gameDataClass = _gameDataClass;
+@synthesize AvatarSprite = _AvatarSprite;
+@synthesize experiencePoints = _experiencePoints;
+@synthesize activityPoints = _activityPoints;
+
+
+
+-(void)spriteHealth{
+    
+}
+
 
 @end

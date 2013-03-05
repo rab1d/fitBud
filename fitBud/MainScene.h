@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-#import "Egg.h"
+// #import "Egg.h"
 #import "Slider.h"
 #import "AvatarLayer.h"
-
+#import "GameData.h"
 #import "syncScene.h"
 
 @interface MainScene : CCLayer {
@@ -20,7 +20,10 @@
 }
 
 // @property double experiencePoints;
-@property (nonatomic) Slider *SliderLayer;
+@property (nonatomic, strong) Slider *SliderLayer;
+
+@property (nonatomic) double experiencePoints;
+@property (nonatomic) double activityPoints;
 
 
 // returns a CCScene that contains the HelloWorldLayer as the only child

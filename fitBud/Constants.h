@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 CUNY City College. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
-@interface Constants : NSObject
 
-@end
+#define LEVEL_1 0
+#define LEVEL_2 1000
+
+//#define AVATAR_1
+//#define AVATAR_2

@@ -13,13 +13,12 @@
 @interface FitbitViewController ()
 @property (strong, nonatomic) OauthMachine2 *oauth;
 @property (strong, nonatomic) UIWebView *myUIWebViewz;
-//@property (strong, nonatomic) HelloWorldLayer mainGame;
 @end
 
 @implementation FitbitViewController
 @synthesize myUIWebViewz;
-//@synthesize mainGame;
 @synthesize oauth=_oauth;
+@synthesize dataDictionary;
 
 - (void)viewDidLoad
 {
@@ -36,7 +35,7 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-/***********************************************************************************************************************************************/
+
 
 - (OauthMachine2 *)oauth
 {
@@ -44,8 +43,6 @@
     return _oauth;
 }
 
-
-/***********************************************************************************************************************************************/
 
 - (void)fitbitUserLogin:(NSString *)tempToken
 {
@@ -67,7 +64,6 @@
 }
 
 
-/***********************************************************************************************************************************************/
 ///delegate method
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
@@ -80,17 +76,22 @@
     if ([URLString rangeOfString:@"verifier"].location!= NSNotFound) {
 
         [self.oauth requestAcessToken:URLString];
+         self.dataDictionary = [self.oauth returnData];
         
         AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
         [app.navController popViewControllerAnimated:YES];
         
-        [CCDirector sharedDirector].resume;
+        //[CCDirector sharedDirector].resume;
+        
+        
        // [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[HelloWorldLayer scene] withColor:ccc3(0, 0, 0)]];
     }
     return YES;
 }
 
-/***********************************************************************************************************************************************/
+-(NSDictionary*)returnDataDictionary{
+    return self.dataDictionary;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -102,5 +103,7 @@
     //[myUIWebViewz release];
     //[super dealloc];
 }
+
+
 
 @end

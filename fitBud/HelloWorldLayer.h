@@ -11,7 +11,7 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
-#import "Egg.h"
+//#import "Egg.h"
 #import "Slider.h"
 #import "AvatarLayer.h"
 

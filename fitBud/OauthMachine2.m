@@ -16,11 +16,19 @@
 
 @end
 
-// @synthesize (strong, nonatomic)
 @implementation OauthMachine2
 @synthesize tempToken;
 @synthesize verifierToken;
 @synthesize accessToken;
+
+@synthesize jsonData;
+
+
+
+/*****************************/
+// Grabs FITBIT API Data
+/*****************************/
+#pragma mark OAuth Stuff
 
 -(NSString *)requestTempToken{
     
@@ -129,6 +137,12 @@
     }
 }
 
+
+/*****************************/
+// Grabs FITBIT API Data
+/*****************************/
+#pragma mark JSON Grabbing
+
 -(void)requestJsonData{
     NSString *oauthConsumerKey = @"a34d9f6d5ec04f308b126f41e6c40bea";
     NSString *oauthConsumerSecret = @"95d8ba531633418ab78dcff622c83355";
@@ -151,28 +165,11 @@
     
 }
 
-/*****************************/
-// Grabs FITBIT API Data
-/*****************************/
-
-- (void)parseAndSendData:(NSDictionary*)jsonData{
-    
-    double steps =           [[[jsonData objectForKey:@"summary"] objectForKey:@"steps"] doubleValue];
-    double caloriesOut =     [[[jsonData objectForKey:@"summary"] objectForKey:@"caloriesOut"] doubleValue];
-    double activityScore =   [[[jsonData objectForKey:@"summary"] objectForKey:@"activityScore"] doubleValue];
-        
-    //posible problem here as the gamedata function should not be called. Improper MVC model
-    GameData *gameData = [[GameData alloc]init];
-    [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
-    //[gameData release];
-    
-}
-
 
 - (void)apiRequest:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
     if (ticket.didSucceed) {
-       // NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-      // NSLog(@"My FitBit API Data is %@", responseBody);
+        NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+       NSLog(@"My FitBit API Data is %@", responseBody);
         //could use this to implement errors
         
         // Get the Data
@@ -182,10 +179,14 @@
                                                                error:&error];
         
         // Send the Data
-        [self parseAndSendData:json];
+        //[self parseAndSetData:json];
+        self.jsonData = json;
              
     }
-    
+}
+
+-(NSDictionary*)returnData{
+    return self.jsonData;
 }
 
 @end

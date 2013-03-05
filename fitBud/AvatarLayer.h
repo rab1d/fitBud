@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "GameData.h"
+// #import "GameData.h"
+#include "Constants.h"
 
 @interface AvatarLayer : CCLayer {
     
@@ -16,12 +17,15 @@
 
 
 @property CCSprite *body;
-@property CCSprite *head;
+@property int level;
+//@property GameData *brain;
+
+//@property CCSprite *head;
 //@property CCSprite *mouth;
 //@property CCSprite *hands;
 //@property CCSprite *feet;
 
--(void)updateAvatar;
+-(void)updateAvatarbyExperience:(double)exp andActivity:(double)act;
 -(void)avatarBounce;
 -(void)avatarRock;
 

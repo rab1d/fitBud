@@ -10,16 +10,18 @@
 // and storing and retrieving information in an internal database
 
 #import "GameData.h"
-#import "GameDataBrain.h"
+// #import "GameDataBrain.h"
 
 @interface GameData()
 @property (strong,nonatomic) NSString *listPath;
+// @property (strong, nonatomic) GameDataBrain *myGDBrain;
 @end
 
 @implementation GameData
 @synthesize listPath;
-@synthesize activityPoints = _activityPoints;
-@synthesize experiencePoints = _experiencePoints;
+//@synthesize activityPoints = _activityPoints;
+//@synthesize experiencePoints = _experiencePoints;
+//@synthesize myGDBrain = _myGDBrain;
 
 
 #pragma mark Initialization
@@ -28,13 +30,26 @@
 -(id)init{
     // [super init];
     [self plistStartup];
+    //self.activityPoints = [self readActivityPoints];
+    //self.experiencePoints = [self readExperiencePoints];
+    NSLog(@"GameData || init. actPoints = %f, expPoints = %f", [self readActivityPoints], [self readActivityPoints]);
     return self;
+}
+
+-(void)setActivityPoints:(double)activityPoints{
+    self.activityPoints = [self readActivityPoints];
+}
+
+-(void)setExperiencePoints:(double)experiencePoints{
+    self.experiencePoints = [self readExperiencePoints];
 }
 
 
 -(void)plistStartup{
     listPath = [[self documentDirectory] stringByAppendingPathComponent:@"fitBudData.plist"];
-    [self clearListPlistFile:listPath];
+    
+    // DEBUG: If manually editing pList, run this function
+    // [self clearListPlistFile:listPath];
     
     if(![[NSFileManager defaultManager] fileExistsAtPath:listPath]){
         
@@ -51,31 +66,62 @@
 
 
 /*****************************/
-// PList Management: Receive Data
+// Sync Data
 /*****************************/
-#pragma mark Receive Data
+#pragma mark Sync Data
+
+-(void)syncGameData{
+    //Call OAuth
+    FitbitViewController *FBView = [[FitbitViewController alloc] init];
+    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+    [app.navController pushViewController:FBView animated:YES];
+    
+    [self parseData:[FBView returnDataDictionary]];
+    
+}
+
+- (void)parseData:(NSDictionary*)jsonData{
+    
+    double steps =           [[[jsonData objectForKey:@"summary"] objectForKey:@"steps"] doubleValue];
+    double caloriesOut =     [[[jsonData objectForKey:@"summary"] objectForKey:@"caloriesOut"] doubleValue];
+    double activityScore =   [[[jsonData objectForKey:@"summary"] objectForKey:@"activityScore"] doubleValue];
+    
+
+     [self receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
+}
 
 -(void)receiveDataWithDate:(NSDate *)syncDate caloriesOut:(double)caloriesOut steps:(double)numSteps activeScore:(double)activeScore{
+    
+    //NSLog(@"GameData||receiveData. activeScore array before write: %@", [self readActiveScoreArray]);
     
     // once received we:
     // 1. call the write methods for calories, steps, and activeScore and Date
     [self writeCaloriesOutPlist:caloriesOut writeStepsPlist:numSteps writeActivityScorePlist:activeScore date:syncDate];
     
-    // 2. pass the calories, step and active score data to another class called GameDataBrain
-    GameDataBrain* myGDBrain = [[GameDataBrain alloc] init];
-    [myGDBrain calculateActivityPoints:[self readActiveScoreArray]];
-    [myGDBrain calculateExperiencePoints:[self readActiveScoreArray]];
+    //NSLog(@"GameData||receiveData. activeScore array after write: %@", [self readActiveScoreArray]);
     
-    // 3. GameDataBrain will use the data to modify the experiencePoints and the activityPoints properties
+    // 2. pass the calories, step and active score data to another class called GameDataBrain. GameDataBrain will use the data to modify the experiencePoints and the activityPoints properties
     
     
     // 4. We write self.activityPoints and self.experiencePoints to the pList, and update the Last Sync Date
-    [self writeExperiencePoints:self.experiencePoints];
-    [self writeActivityPoints:self.activityPoints];
+    [self writeExperiencePoints:[self calculateExperiencePoints:[self readActiveScoreArray]]];
+    [self writeActivityPoints:[self calculateActivityPoints:[self readActiveScoreArray]]];
     [self writeSyncDate:[NSDate date]];
     
 }
 
+/*****************************/
+// Sync Data
+/*****************************/
+#pragma mark Send Data
+
+-(double)sendActivityPoints{
+    return [self calculateActivityPoints:[self readActiveScoreArray]];
+}
+
+-(double)sendExperiencePoints{
+    return [self calculateExperiencePoints:[self readActiveScoreArray]];
+}
 
 /*****************************/
 // PList Management: Write
@@ -89,34 +135,34 @@
                         date:(NSDate *)syncDate{
     
     
-    NSLog(@"Cal: %f, Steps: %f, Act: %f, Date: %@", caloriesOut, steps, activityScore, syncDate);
+    //NSLog(@"Cal: %f, Steps: %f, Act: %f, Date: %@", caloriesOut, steps, activityScore, syncDate);
     
     // Get my pList
     NSMutableDictionary *myPListDictionary = [self getListContents];
     NSMutableDictionary *myGameDataDictionary = [self readGameData];
-    NSLog(@"tempGameDataDict 1: %@", myPListDictionary);
+    //NSLog(@" GameData|| write. Whole Dictionary before write: %@", myPListDictionary);
     
     // grab calories array and add new calorie
     NSMutableArray *caloriesArray = [self readCaloriesOutArray];
     [caloriesArray addObject:[NSNumber numberWithFloat:caloriesOut]];
-    NSLog(@"Calories Array: %@", caloriesArray);
+    //NSLog(@"GameData|| write.  Calories Array before write:%@", caloriesArray);
     
     // grab steps array and add new steps
     NSMutableArray *stepsArray = [self readStepsArray];
     [stepsArray addObject:[NSNumber numberWithFloat:steps]];
-    NSLog(@"Steps Array: %@", stepsArray);
+    //NSLog(@"GameData|| write. Steps Array before write: %@", stepsArray);
     
     
     // grab activity score array and add new activity score
     NSMutableArray *scoreArray = [self readActiveScoreArray];
     [scoreArray addObject:[NSNumber numberWithFloat:activityScore]];
-    NSLog(@"Score Array: %@", scoreArray);
+    //NSLog(@"GameData|| write. Score Array before write: %@", scoreArray);
     
     
     // grab date array and add new date
     NSMutableArray *datesArray = [self readDateArray];
     [datesArray addObject:syncDate];
-    NSLog(@"Dates Array: %@", datesArray);
+    //NSLog(@"GameData|| write. Dates Array before write: %@", datesArray);
     
     
     // add arrays to the pList dictionary
@@ -129,7 +175,7 @@
     // save temp Game Data dictionary to pList
     [myPListDictionary writeToFile:listPath atomically:YES];
     
-    NSLog(@"tempGameDataDict 2: %@", myPListDictionary);
+     //NSLog(@" GameData|| write. Whole Dictionary after write: %@", myPListDictionary);
     
 }
 
@@ -177,7 +223,7 @@
  -(NSMutableDictionary *)readGameData{
      NSMutableDictionary *plistContents = [self getListContents];
      NSMutableDictionary *dataDictionary = [plistContents objectForKey:@"Game Data"];
-     NSLog(@"gd Game data: %@", dataDictionary);
+    // NSLog(@"gd Game data: %@", dataDictionary);
      return dataDictionary;
  }
  
@@ -191,7 +237,7 @@
 -(NSMutableArray *)readCaloriesOutArray{
     NSMutableDictionary *plistContents = [self readGameData];
     NSMutableArray *calArray = [plistContents objectForKey:@"Calories Out"];
-    NSLog(@"Calories Array: %@", calArray);
+    //NSLog(@"Calories Array: %@", calArray);
     return calArray;
 }
 
@@ -241,6 +287,57 @@
         NSLog(@"Unable to delete file");
     
 }
+
+/*****************************/
+// Brain Functionality
+/*****************************/
+#pragma mark Calculate Experience Points and Activit Points
+
+-(double)calculateActivityPoints:(NSArray*)activeScoreArray{
+    NSMutableArray *temp = [activeScoreArray mutableCopy];
+    double result;
+    //NSLog(@"DataBrain || calcActivityPoints. Received activeScoreArray: %@", activeScoreArray);
+    
+    // self.activityPoints = sum(activeScore of last three days
+    if ([activeScoreArray count]==0){
+        result = 0;
+    } else if ([activeScoreArray count] == 1){
+        result = [[temp lastObject] doubleValue];
+    } else if ([activeScoreArray count] == 2){
+        double first = [[temp lastObject] doubleValue];
+        [temp removeLastObject];
+        double second = [[temp lastObject] doubleValue];
+        
+        result = first + second;
+    } else {
+        double first = [[temp lastObject] doubleValue];
+        [temp removeLastObject];
+        double second = [[temp lastObject] doubleValue];
+        [temp removeLastObject];
+        double third = [[temp lastObject] doubleValue];
+        
+        result = first + second + third;
+    }
+    
+    return result;
+    //NSLog(@"DataBrain || calcActivityPoints. Calculated Activity Points = %f", result);
+}
+-(double)calculateExperiencePoints:(NSArray*)activeScoreArray{
+    NSInteger sum = 0;
+    for (NSNumber *num in activeScoreArray)
+    {
+        sum += [num doubleValue];
+    }
+    
+    return sum;
+}
+
+
+/*
+[self writeExperiencePoints:[self.myGDBrain calculateExperiencePoints:[self readActiveScoreArray]]];
+[self writeActivityPoints:[self.myGDBrain calculateActivityPoints:[self readActiveScoreArray]]];
+[self writeSyncDate:[NSDate date]];
+*/
 
 /*****************************/
 // Access Token Read Write

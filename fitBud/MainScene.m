@@ -15,8 +15,9 @@
 @interface MainScene ()
 @property (strong,nonatomic) UIWebView *googleView;
 @property (nonatomic) CGSize windowSize;
-@property (nonatomic) Egg *EggLayer;
+//@property (nonatomic) Egg *EggLayer;
 @property (nonatomic) AvatarLayer *myAvatar;
+@property (nonatomic) BOOL syncMenuDisplayed;
 
 @end
 
@@ -25,22 +26,17 @@
 // Experience points need to be fetched from somewhere
 //@synthesize experiencePoints = _experiencePoints;
 @synthesize windowSize  = _windowSize;
-@synthesize EggLayer = _EggLayer;
+//@synthesize EggLayer = _EggLayer;
 @synthesize SliderLayer = _SliderLayer;
 @synthesize myAvatar = _myAvatar;
-
+@synthesize syncMenuDisplayed;
 
 #pragma mark Initial Stuff
 
 -(void)setWindowSize:(CGSize)winSize{
     CGSize windowSize = [[CCDirector sharedDirector] winSize];
-    
 }
 
--(Egg *)EggLayer{
-    if(!_EggLayer) _EggLayer = [Egg node];
-    return _EggLayer;
-}
 
 -(Slider *)SliderLayer{
     if(!_SliderLayer) _SliderLayer = [Slider node];
@@ -76,17 +72,15 @@
 /*
  -(void)onEnter{
  NSLog(@"You have entered");
- //self.isTouchEnabled = YES;
+ 
  //[self.EggLayer eggRock];
  
  }
  */
-
+/*
 -(void)onEnterTransitionDidFinish{
-    
-    
-    [self.SliderLayer updateSlider];
-}
+    [self.SliderLayer updateSlider:self.experiencePoints];
+}*/
 
 // on "init" you need to initialize your instance
 -(id) init
@@ -97,6 +91,7 @@
         
         self.isTouchEnabled = YES;
         
+        //get user game data
         
         // Load assets
         [self loadSliderLayer];
@@ -106,10 +101,10 @@
         
         // give some life to the avatar
         
-        [self.EggLayer eggRock];
+        //[self.EggLayer eggRock];
         // [self schedule:@selector(loadSliderLayer:)];
         
-        //[self.myAvatar avatarBounce];
+        [self.myAvatar avatarBounce];
         
 	}
 	return self;
@@ -127,22 +122,22 @@
 -(void) loadAvatar{
     
     //load egg
-    [self addChild:self.EggLayer z:1];
-    [self.EggLayer loadEgg];
-    /*
+    // [self addChild:self.EggLayer z:1];
+    //[self.EggLayer loadEgg];
+    
      // load dog
-     [self addChild: self.myAvatar z:0];
-     [self.myAvatar updateAvatar];
-     */
+     [self addChild: self.myAvatar z:20];
+     [self.myAvatar updateAvatarbyExperience:self.experiencePoints andActivity:self.activityPoints];
+     
     
 };
 
 
 -(void) loadSliderLayer{
     //Slider * sliderLayer = [Slider node];
-    NSLog(@"Slider loaded");
+    // NSLog(@"Slider loaded");
     [self addChild: self.SliderLayer z:0];
-    [self.SliderLayer updateSlider];
+    [self.SliderLayer updateSlider:self.experiencePoints];
     
 };
 
@@ -196,11 +191,11 @@
     
     
     //logs where you have touch in the screen
-    CCLOG(@"touch happened at x: %0.2f, y: %0.2f", location.x, location.y);
+    NSLog(@"touch happened at x: %0.2f, y: %0.2f", location.x, location.y);
     
     //if avatar is touch, calls an animate
-    if (CGRectContainsPoint([self.EggLayer.eggSprite boundingBox], location)){
-        
+    //if (CGRectContainsPoint([self.EggLayer.eggSprite boundingBox], location)){
+      if (CGRectContainsPoint([self.myAvatar.body boundingBox], location)){
         [self avatarTouched];
     } else {
         [self bgTouched:location];
@@ -209,7 +204,8 @@
 }
 
 -(void)avatarTouched{
-    [self.EggLayer eggBounce];
+    //[self.EggLayer eggBounce];
+    [self.myAvatar avatarBounce];
 }
 
 -(void)bgTouched:(CGPoint)location{
@@ -226,7 +222,9 @@
     
     // id totalAction = [CCSpawn actions:moveAction, action2, nil];
     
-    [self.EggLayer.eggSprite runAction:moveAction];
+    //[self.EggLayer.eggSprite runAction:moveAction];
+    [self.myAvatar.body runAction:moveAction];
+    
     /*
      [self.myAvatar.body runAction:moveAction];
      [self.myAvatar.head runAction:moveAction];
@@ -241,20 +239,16 @@
 
 - (void) syncBudWithFitBit: (CCMenuItem  *) menuItem
 {
+    
+    
 	NSLog(@"The sync menu was called");
-    //Add the tableview when the transition is done
+    
+    [self loadSyncButtons];
+    self.syncMenuDisplayed = TRUE;
     /*
-    FitbitViewController *FBView = [[FitbitViewController alloc] init];
-    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
-    [app.navController pushViewController:FBView animated:YES];
-    //[CCDirector sharedDirector].pause;
-    */
-    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[syncScene scene] withColor:ccc3(0, 0, 0)]];
-    
-    
-    [self.SliderLayer updateSlider];
-    
+     */
+
 }
 
 
@@ -300,7 +294,8 @@
     id action2 = [CCRepeatForever actionWithAction:
                   [CCSequence actions: [a1 copy] , [a1 reverse], [a2 copy] , [a2 reverse], nil]
                   ];
-    CCSprite *sprite = (CCSprite *)[self.EggLayer getChildByTag:1];
+    //CCSprite *sprite = (CCSprite *)[self.EggLayer getChildByTag:1];
+    CCSprite *sprite = (CCSprite *)[self.myAvatar getChildByTag:1];
     [sprite runAction:action2];
 }
 
@@ -311,6 +306,128 @@
  ];
  [sprite runAction:action2];
  */
+
+#pragma mark Sync Layer
+
+/**************************************************/
+// Actions
+/**************************************************/
+// Should only be call once at a time
+-(void) loadSyncButtons{
+    if(!self.syncMenuDisplayed){
+    CCMenuItemFont *lazy = [CCMenuItemFont itemWithString:@"Lazy" target:self selector:@selector(doLazySync)];
+    CCMenuItemFont *medium = [CCMenuItemFont itemWithString:@"Medium" target:self selector:@selector(doMediumSync)];
+    CCMenuItemFont *marathoner = [CCMenuItemFont itemWithString:@"Marathoner" target:self selector:@selector(doMarathonerSync)];
+    CCMenuItemFont *fitBitSync = [CCMenuItemFont itemWithString:@"FitBit Sync" target:self selector:@selector(doFitBitSync)];
+    CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(removeSyncLayer)];
+    
+    CCMenu *myMenu = [CCMenu menuWithItems:lazy, medium, marathoner, fitBitSync, back, nil];
+    [myMenu alignItemsVertically];
+    [self addChild:myMenu z:100 tag:40];
+    }
+};
+
+
+-(void)doLazySync{
+    double steps =           10;
+    double caloriesOut =     10;
+    double activityScore =   10;
+    
+    //posible problem here as the gamedata function should not be called. Improper MVC model
+    GameData *gameData = [[GameData alloc]init];
+    [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
+    double exp = [gameData sendExperiencePoints];
+    double act = [gameData sendActivityPoints];
+    [self updateExperiencePoints:exp AndActivityPoints:act];
+    NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
+    
+    [self updateSlider];
+    [self removeSyncLayer];
+    
+}
+
+-(void)doMediumSync{
+    double steps =           500;
+    double caloriesOut =     250;
+    double activityScore =   100;
+    
+    //posible problem here as the gamedata function should not be called. Improper MVC model
+    GameData *gameData = [[GameData alloc]init];
+    [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
+    double exp = [gameData sendExperiencePoints];
+    double act = [gameData sendActivityPoints];
+    [self updateExperiencePoints:exp AndActivityPoints:act];
+    NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
+    
+    [self updateSlider];
+    [self removeSyncLayer];
+    
+    
+}
+
+-(void)doMarathonerSync{
+    double steps =           1500;
+    double caloriesOut =     750;
+    double activityScore =   500;
+    
+    //posible problem here as the gamedata function should not be called. Improper MVC model
+    GameData *gameData = [[GameData alloc]init];
+    [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
+    
+    //[gameData release];
+    double exp = [gameData sendExperiencePoints];
+    double act = [gameData sendActivityPoints];
+    [self updateExperiencePoints:exp AndActivityPoints:act];
+   
+    
+    NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
+    [self updateSlider];
+    [self removeSyncLayer];
+    
+    
+}
+
+-(void)doFitBitSync{
+    GameData *gameData = [[GameData alloc]init];
+    [gameData syncGameData];
+    
+    /*
+     FitbitViewController *FBView = [[FitbitViewController alloc] init];
+     AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+     [app.navController pushViewController:FBView animated:YES];
+     //[CCDirector sharedDirector].pause;
+     
+     [self goBackToMainScene];
+     
+     //[self.SliderLayer updateSlider];
+     */
+    double exp = [gameData sendExperiencePoints];
+    double act = [gameData sendActivityPoints];
+    [self updateExperiencePoints:exp AndActivityPoints:act];
+    NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
+    
+    [self updateSlider];
+    [self removeSyncLayer];
+}
+
+-(void)updateExperiencePoints:(double)exp AndActivityPoints:(double)act{
+    self.experiencePoints = exp;
+    self.activityPoints = act;
+}
+
+-(void)updateSlider{
+    [self.SliderLayer removeChildByTag:1];
+    [self.SliderLayer updateSlider:self.experiencePoints];
+    [self.myAvatar removeChildByTag:1];
+    [self.myAvatar updateAvatarbyExperience:self.experiencePoints andActivity:self.activityPoints];
+}
+
+
+-(void)removeSyncLayer{
+    [self removeChildByTag:40];
+    self.syncMenuDisplayed = FALSE;
+}
+
 
 
 @end

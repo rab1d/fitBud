@@ -11,8 +11,8 @@
 
 @interface GameDataBrain : NSObject
 
--(void)calculateActivityPoints:(NSArray*)activeScoreArray;
--(void)calculateExperiencePoints:(NSArray*)activeScoreArray;
+-(double)calculateActivityPoints:(NSArray*)activeScoreArray;
+-(double)calculateExperiencePoints:(NSArray*)activeScoreArray;
 
 
 @end
