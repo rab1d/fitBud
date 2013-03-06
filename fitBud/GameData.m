@@ -49,7 +49,7 @@
     listPath = [[self documentDirectory] stringByAppendingPathComponent:@"fitBudData.plist"];
     
     // DEBUG: If manually editing pList, run this function
-    // [self clearListPlistFile:listPath];
+     [self clearListPlistFile:listPath];
     
     if(![[NSFileManager defaultManager] fileExistsAtPath:listPath]){
         

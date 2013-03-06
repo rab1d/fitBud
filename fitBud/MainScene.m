@@ -15,7 +15,6 @@
 @interface MainScene ()
 @property (strong,nonatomic) UIWebView *googleView;
 @property (nonatomic) CGSize windowSize;
-//@property (nonatomic) Egg *EggLayer;
 @property (nonatomic) AvatarLayer *myAvatar;
 @property (nonatomic) BOOL syncMenuDisplayed;
 
@@ -26,7 +25,6 @@
 // Experience points need to be fetched from somewhere
 //@synthesize experiencePoints = _experiencePoints;
 @synthesize windowSize  = _windowSize;
-//@synthesize EggLayer = _EggLayer;
 @synthesize SliderLayer = _SliderLayer;
 @synthesize myAvatar = _myAvatar;
 @synthesize syncMenuDisplayed;
@@ -87,11 +85,12 @@
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
+    
 	if( (self=[super init]) ) {
-        
         self.isTouchEnabled = YES;
-        
+
         //get user game data
+        
         
         // Load assets
         [self loadSliderLayer];
@@ -100,13 +99,9 @@
         [self loadBackground];
         
         // give some life to the avatar
-        
-        //[self.EggLayer eggRock];
-        // [self schedule:@selector(loadSliderLayer:)];
-        
-        [self.myAvatar avatarBounce];
-        
+        [self.myAvatar avatarRock];
 	}
+    
 	return self;
 }
 
@@ -177,6 +172,23 @@
     [self addChild:myMenu z:1];
 };
 
+#pragma mark Update Slider and Avatar and Properties
+-(void)updateExperiencePoints:(double)exp AndActivityPoints:(double)act{
+    self.experiencePoints = exp;
+    self.activityPoints = act;
+}
+
+-(void)updateSlider{
+    [self.SliderLayer removeChildByTag:1];
+    [self.SliderLayer updateSlider:self.experiencePoints];
+
+}
+
+-(void)updateAvatar{
+    [self.myAvatar removeChildByTag:1];
+    [self.myAvatar updateAvatarbyExperience:self.experiencePoints andActivity:self.activityPoints];
+}
+
 /**************************************************/
 // Touches
 /**************************************************/
@@ -204,32 +216,21 @@
 }
 
 -(void)avatarTouched{
-    //[self.EggLayer eggBounce];
     [self.myAvatar avatarBounce];
 }
 
 -(void)bgTouched:(CGPoint)location{
-    //move egg to the touched object
+    //move avatar to the touched position
     
     id moveAction = [CCMoveTo actionWithDuration:5 position:location];
     id bounceAction = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
-    
     
     id action2 = [CCRepeat actionWithAction:
                   [CCSequence actions: [bounceAction copy], [bounceAction reverse], nil]
                                       times: 6
                   ];
     
-    // id totalAction = [CCSpawn actions:moveAction, action2, nil];
-    
-    //[self.EggLayer.eggSprite runAction:moveAction];
     [self.myAvatar.body runAction:moveAction];
-    
-    /*
-     [self.myAvatar.body runAction:moveAction];
-     [self.myAvatar.head runAction:moveAction];
-     */
-    
 }
 
 /**************************************************/
@@ -239,16 +240,9 @@
 
 - (void) syncBudWithFitBit: (CCMenuItem  *) menuItem
 {
-    
-    
 	NSLog(@"The sync menu was called");
-    
     [self loadSyncButtons];
     self.syncMenuDisplayed = TRUE;
-    /*
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.5f scene:[syncScene scene] withColor:ccc3(0, 0, 0)]];
-     */
-
 }
 
 
@@ -257,55 +251,6 @@
 	NSLog(@"The log menu was called");
 }
 
-
-
-// on "dealloc" you need to release all your retained objects
-- (void) dealloc
-{
-    
-}
-
-
-/**************************************************/
-// Actions
-/**************************************************/
-#pragma mark Avatar Actions/Animations
-
-/*
- -(void)Bounce{
- // Bounce at the beginning and at the end
- 
- id action = [CCMoveBy actionWithDuration:.2 position:ccp(0,20)];
- id action2 = [CCRepeat actionWithAction:
- [CCSequence actions: [[action copy] autorelease], [action reverse], nil]
- times: 6
- ];
- CCSprite *sprite = self.EggLayer.eggSprite;
- [sprite runAction:action2];
- 
- 
- 
- }
- */
-
--(void)Rock{
-    id a1 = [CCRotateBy actionWithDuration:1    angle:5];
-    id a2 = [CCRotateBy actionWithDuration:1    angle:-5];
-    id action2 = [CCRepeatForever actionWithAction:
-                  [CCSequence actions: [a1 copy] , [a1 reverse], [a2 copy] , [a2 reverse], nil]
-                  ];
-    //CCSprite *sprite = (CCSprite *)[self.EggLayer getChildByTag:1];
-    CCSprite *sprite = (CCSprite *)[self.myAvatar getChildByTag:1];
-    [sprite runAction:action2];
-}
-
-/*
- id a1 = [CCMoveBy actionWithDuration:1 position:ccp(150,0)];
- id action2 = [CCRepeatForever actionWithAction:
- [CCSequence actions: [[a1 copy] autorelease], [a1 reverse], nil]
- ];
- [sprite runAction:action2];
- */
 
 #pragma mark Sync Layer
 
@@ -318,7 +263,8 @@
     CCMenuItemFont *lazy = [CCMenuItemFont itemWithString:@"Lazy" target:self selector:@selector(doLazySync)];
     CCMenuItemFont *medium = [CCMenuItemFont itemWithString:@"Medium" target:self selector:@selector(doMediumSync)];
     CCMenuItemFont *marathoner = [CCMenuItemFont itemWithString:@"Marathoner" target:self selector:@selector(doMarathonerSync)];
-    CCMenuItemFont *fitBitSync = [CCMenuItemFont itemWithString:@"FitBit Sync" target:self selector:@selector(doFitBitSync)];
+    CCMenuItemFont *fitBitSync = [CCMenuItemFont itemWithString:@"FitBit Sync" target:self selector:@selector(syncAvailability)];
+    
     CCMenuItemFont *back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(removeSyncLayer)];
     
     CCMenu *myMenu = [CCMenu menuWithItems:lazy, medium, marathoner, fitBitSync, back, nil];
@@ -342,6 +288,7 @@
     NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
     
     [self updateSlider];
+    [self updateAvatar];
     [self removeSyncLayer];
     
 }
@@ -356,10 +303,12 @@
     [gameData receiveDataWithDate:[NSDate date] caloriesOut:caloriesOut steps:steps activeScore:activityScore];
     double exp = [gameData sendExperiencePoints];
     double act = [gameData sendActivityPoints];
+    
     [self updateExperiencePoints:exp AndActivityPoints:act];
     NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
     
     [self updateSlider];
+    [self updateAvatar];
     [self removeSyncLayer];
     
     
@@ -382,50 +331,60 @@
     
     NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
     [self updateSlider];
+    [self updateAvatar];
     [self removeSyncLayer];
     
     
 }
 
--(void)doFitBitSync{
+-(void)doFitBitSync:(NSNotification *)note{
+    Reachability * reach = [note object];
+    
+    if ([reach isReachable])
+    {
     GameData *gameData = [[GameData alloc]init];
     [gameData syncGameData];
-    
-    /*
-     FitbitViewController *FBView = [[FitbitViewController alloc] init];
-     AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
-     [app.navController pushViewController:FBView animated:YES];
-     //[CCDirector sharedDirector].pause;
-     
-     [self goBackToMainScene];
-     
-     //[self.SliderLayer updateSlider];
-     */
+   
     double exp = [gameData sendExperiencePoints];
     double act = [gameData sendActivityPoints];
     [self updateExperiencePoints:exp AndActivityPoints:act];
     NSLog(@"syncScene||doMarathonerSync. experiencePoints: %f, activityPoints: %f", exp, act);
-    
     [self updateSlider];
+    [self updateAvatar];
     [self removeSyncLayer];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Sorry!!"
+                              message: @"We could not sync your Fitbit data because there is no Internet connection available."
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
--(void)updateExperiencePoints:(double)exp AndActivityPoints:(double)act{
-    self.experiencePoints = exp;
-    self.activityPoints = act;
-}
-
--(void)updateSlider{
-    [self.SliderLayer removeChildByTag:1];
-    [self.SliderLayer updateSlider:self.experiencePoints];
-    [self.myAvatar removeChildByTag:1];
-    [self.myAvatar updateAvatarbyExperience:self.experiencePoints andActivity:self.activityPoints];
-}
 
 
 -(void)removeSyncLayer{
     [self removeChildByTag:40];
     self.syncMenuDisplayed = FALSE;
+}
+
+#pragma mark Setup Data Connection Check
+
+//Could possibly make this reuseable but there is only one function in this class that requires data.
+//Possibly will need to convert these to blocks and run a spinning wheel in the UI.
+-(void)syncAvailability{
+    Reachability * reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(doFitBitSync:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    
+    [reach startNotifier];
 }
 
 

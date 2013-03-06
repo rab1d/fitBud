@@ -24,6 +24,9 @@
 {
     [super viewDidLoad];
     
+    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+    app.navController.navigationBarHidden = NO;
+    
     //test for internet connection here!
     NSString *tempToken = [self.oauth requestTempToken];
     [self fitbitUserLogin:tempToken];
@@ -35,7 +38,11 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
+    app.navController.navigationBarHidden = YES;
+}
 
 - (OauthMachine2 *)oauth
 {
@@ -48,6 +55,9 @@
 {
     // Initialize UIWebView
     myUIWebViewz = [[UIWebView alloc] init];
+    //myToolbar = [[UIToolbar alloc]init];
+    
+    
     
     // Create tempToken URL as String
     NSString *authorizUrl = [NSString stringWithFormat:@"http://www.fitbit.com/oauth/authorize?oauth_token=%@&display=touch&requestCredentials=true",tempToken];
@@ -61,6 +71,12 @@
     // Load that URL on a UIWebView
     [myUIWebViewz loadRequest:redirectRequest];
     self.view=myUIWebViewz;
+/*
+    
+    UIToolbar *tb = [[UIToolbar alloc] init];
+    tb.frame = CGRectMake(0, 0, 200, 200);
+    [self.view addSubview:tb];*/
+    
 }
 
 
@@ -81,6 +97,8 @@
         AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
         [app.navController popViewControllerAnimated:YES];
         
+        
+        
         //[CCDirector sharedDirector].resume;
         
         
@@ -100,8 +118,7 @@
 }
 
 - (void)dealloc {
-    //[myUIWebViewz release];
-    //[super dealloc];
+ 
 }
 
 

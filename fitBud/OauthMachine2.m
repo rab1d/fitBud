@@ -143,10 +143,39 @@
 /*****************************/
 #pragma mark JSON Grabbing
 
+
+- (void)apiRequest:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    if (ticket.didSucceed) {
+        NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"My FitBit API Data is %@", responseBody);
+        //could use this to implement errors
+        
+        // Get the Data
+        NSError* error = [[NSError alloc]init];
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data //1
+                                                             options:kNilOptions
+                                                               error:&error];
+        // Send the Data
+        //[self parseAndSetData:json];
+        self.jsonData = json;
+    }
+}
+
+
 -(void)requestJsonData{
     NSString *oauthConsumerKey = @"a34d9f6d5ec04f308b126f41e6c40bea";
     NSString *oauthConsumerSecret = @"95d8ba531633418ab78dcff622c83355";
-    NSString *oauthURLString = @"http://api.fitbit.com/1/user/-/activities/date/2012-11-30.json";
+    ///this has to be fixed here. A function should be created in the Game Data class that allows one to check if the date is the same. If the date is the same then you must subtract the new values from the old days values. Else you add stats on.
+    ///Also there should be a function that syncs at midnight or whenever is the first time that the phone is on.
+    //This could probably better be done by a remote server.
+    
+    //this could possibly be its own method here.
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    //NSLog(@"%@",dateString);
+    
+    NSString *oauthURLString =[@"http://api.fitbit.com/1/user/-/activities/date/" stringByAppendingFormat:@"%@.json",dateString];
     
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:oauthConsumerKey
                                                     secret:oauthConsumerSecret];
@@ -166,27 +195,12 @@
 }
 
 
-- (void)apiRequest:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-    if (ticket.didSucceed) {
-        NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-       NSLog(@"My FitBit API Data is %@", responseBody);
-        //could use this to implement errors
-        
-        // Get the Data
-        NSError* error;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data //1
-                                                             options:kNilOptions
-                                                               error:&error];
-        
-        // Send the Data
-        //[self parseAndSetData:json];
-        self.jsonData = json;
-             
-    }
-}
 
 -(NSDictionary*)returnData{
     return self.jsonData;
 }
+
+
+
 
 @end

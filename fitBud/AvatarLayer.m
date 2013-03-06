@@ -10,7 +10,8 @@
 @interface AvatarLayer()
 @property double experiencePoints;
 @property double activityPoints;
-
+//@property
+-(NSString *)getLevel2HealthPicture:(double)act;
 @end
 
 @implementation AvatarLayer
@@ -25,14 +26,24 @@
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    // Which sprite am I? (based on experience Points)
     self.body = [CCSprite spriteWithFile:[self avatarName]];
-    self.body.position = ccp(winSize.width/2, winSize.height/2);
+
+    //How does the sprite look? (based on activitiy points);
     [self.body setScale:.25];
+    //[self shouldGetMoreFit:[self didWorkOutHard]];
+    
+    
+    // Place at the center of the screen
+    self.body.position = ccp(winSize.width/2, winSize.height/2);
+    
+    // Add it to the layer
     [self addChild:self.body z:0 tag:1];
     
     NSLog(@"AvatarLayer||updateAvatar: exp: %f, act: %f:", self.experiencePoints, self.activityPoints);
     
 }
+
 
 
 -(NSString *)avatarName{
@@ -41,8 +52,10 @@
     switch ([self updateLevel]) {
         case 1:
             avatarSpriteFile= @"egg.png";
+            
             break;
         case 2:
+       //     [self getLevel2HealthPicture:self.activityPoints];
             avatarSpriteFile = @"b3_jj1.png";
             break;
         default:
@@ -62,6 +75,29 @@
         self.level = 2;
     }
     return self.level;
+}
+
+
+
+
+#pragma mark Fatter/Skinnier
+-(void)shouldGetMoreFit:(BOOL)didWorkOutHard{
+    if(didWorkOutHard){
+        self.body.scaleX = self.body.scaleX * 0.9;
+        self.body.scaleY = 0.25;
+    } else {
+        self.body.scaleX = self.body.scaleX * 1.2;
+        self.body.scaleY = 0.25;
+    }
+    
+}
+
+-(BOOL)didWorkOutHard{
+    if (self.activityPoints > 500){
+        return TRUE;
+    } else { return FALSE;
+    }
+    
 }
 
 
@@ -88,7 +124,23 @@
     [self.body runAction:action2];
 }
 
-
-
+/*
+//this should probably not be done here...but in a model.
+-(NSString *)getLevel2HealthPicture:(double)act{
+    NSString *result;
+    switch ((int)act) {
+        case 0 ... 2:
+            result = lvl1_avatar1;
+            break;
+        case 3 ... 5:
+            result = lvl2_avatar1;
+            break;
+        case 6 ... 1000000:
+            result = lvl2_avatar3;
+            break;
+    }
+    return result;
+}
+*/
 
 @end

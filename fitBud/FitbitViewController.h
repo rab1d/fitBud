@@ -15,7 +15,7 @@
 
 
 @interface FitbitViewController : UIViewController <UIWebViewDelegate>{
-    IBOutlet UIWebView *myUIWebViewz;
+    //IBOutlet UIWebView *myUIWebViewz;
 }
 
 @property NSDictionary *dataDictionary;

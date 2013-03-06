@@ -22,8 +22,8 @@
     // where do I place the image?
     
     CGPoint startPoint = ccp(30, 391);
-    CGFloat maxPoint = 270;
-    CGFloat xPos = fmod((experiencePoints/100), maxPoint);
+    CGFloat maxPoint = 271;
+    CGFloat xPos = fmod((270*experiencePoints/1000), maxPoint);
     if(xPos >= 300){
         xPos = xPos - 300 + startPoint.x;
     }

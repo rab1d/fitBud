@@ -14,6 +14,7 @@
 #import "AvatarLayer.h"
 #import "GameData.h"
 #import "syncScene.h"
+#import "Reachability.h"
 
 @interface MainScene : CCLayer {
     
@@ -21,7 +22,6 @@
 
 // @property double experiencePoints;
 @property (nonatomic, strong) Slider *SliderLayer;
-
 @property (nonatomic) double experiencePoints;
 @property (nonatomic) double activityPoints;
 
