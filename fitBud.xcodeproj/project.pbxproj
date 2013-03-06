@@ -195,6 +195,11 @@
 		86D06677169A8A200030E1DB /* CCScale9Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06661169A8A200030E1DB /* CCScale9Sprite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86D06678169A8A200030E1DB /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D06663169A8A200030E1DB /* Utils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86D06679169A8A200030E1DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 86D06665169A8A200030E1DB /* README.md */; };
+		9A12AF6016E6F73400AB0234 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A12AF5F16E6F73400AB0234 /* SystemConfiguration.framework */; };
+		9A12AF6516E6FA7F00AB0234 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A12AF6416E6FA7F00AB0234 /* Reachability.m */; };
+		9A12AF6816E6FA9B00AB0234 /* Reachability.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9A12AF6616E6FA9B00AB0234 /* Reachability.podspec */; };
+		9A12AF6916E6FA9B00AB0234 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A12AF6716E6FA9B00AB0234 /* README.md */; };
+		9A12AF6B16E6FAA500AB0234 /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A12AF6A16E6FAA500AB0234 /* LICENCE.txt */; };
 		9A2BB91C169B96540076B0CA /* sync-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91A169B96540076B0CA /* sync-button-pressed.png */; };
 		9A2BB91D169B96540076B0CA /* sync-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91B169B96540076B0CA /* sync-button.png */; };
 		9A2BB920169B96600076B0CA /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BB91F169B96600076B0CA /* slider.png */; };
@@ -594,6 +599,12 @@
 		86D5D80016AE5A3D00122C2C /* OAProblem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAProblem.h; sourceTree = "<group>"; };
 		86D5D80116AE5A3D00122C2C /* OAProblem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAProblem.m; sourceTree = "<group>"; };
 		86D5D80216AE5A3D00122C2C /* OARequestParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OARequestParameter.h; sourceTree = "<group>"; };
+		9A12AF5F16E6F73400AB0234 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9A12AF6316E6FA7F00AB0234 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9A12AF6416E6FA7F00AB0234 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9A12AF6616E6FA9B00AB0234 /* Reachability.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Reachability.podspec; sourceTree = "<group>"; };
+		9A12AF6716E6FA9B00AB0234 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9A12AF6A16E6FAA500AB0234 /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
 		9A2BB91A169B96540076B0CA /* sync-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button-pressed.png"; path = "Resources/sync-button-pressed.png"; sourceTree = "<group>"; };
 		9A2BB91B169B96540076B0CA /* sync-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sync-button.png"; path = "Resources/sync-button.png"; sourceTree = "<group>"; };
 		9A2BB91F169B96600076B0CA /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slider.png; path = Resources/slider.png; sourceTree = "<group>"; };
@@ -653,6 +664,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A12AF6016E6F73400AB0234 /* SystemConfiguration.framework in Frameworks */,
 				9A75E76F169B86C3000AFC56 /* libz.dylib in Frameworks */,
 				869469A31699EE8C0025CF85 /* QuartzCore.framework in Frameworks */,
 				869469A51699EE8C0025CF85 /* OpenGLES.framework in Frameworks */,
@@ -672,6 +684,7 @@
 		869469931699EE8C0025CF85 = {
 			isa = PBXGroup;
 			children = (
+				9A12AF5F16E6F73400AB0234 /* SystemConfiguration.framework */,
 				869469B41699EE8C0025CF85 /* fitBud */,
 				869469A11699EE8C0025CF85 /* Frameworks */,
 				8694699F1699EE8C0025CF85 /* Products */,
@@ -1213,11 +1226,11 @@
 		86F8FC7E16CF49E500A60D3D /* FitBit Data Grabber */ = {
 			isa = PBXGroup;
 			children = (
+				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 				9A9849EA169CD1BD006FF3B5 /* FitbitViewController.m */,
 				9A9849E9169CD1BD006FF3B5 /* FitbitViewController.h */,
 				9A9849ED169DDBC0006FF3B5 /* OauthMachine2.h */,
 				9A9849EE169DDBC0006FF3B5 /* OauthMachine2.m */,
-				9A2BB93F169BCF0F0076B0CA /* Oauth */,
 			);
 			name = "FitBit Data Grabber";
 			sourceTree = "<group>";
@@ -1241,9 +1254,22 @@
 				8611ADB316DB14D800F7A178 /* MainScene.m */,
 				86946B421699EE910025CF85 /* IntroLayer.m */,
 				86946B411699EE910025CF85 /* IntroLayer.h */,
+				9A12AF6216E6F91F00AB0234 /* Reachability */,
 				86D0667B169A8B580030E1DB /* Layers */,
 			);
 			name = "Game Graphics";
+			sourceTree = "<group>";
+		};
+		9A12AF6216E6F91F00AB0234 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				9A12AF6A16E6FAA500AB0234 /* LICENCE.txt */,
+				9A12AF6616E6FA9B00AB0234 /* Reachability.podspec */,
+				9A12AF6716E6FA9B00AB0234 /* README.md */,
+				9A12AF6316E6FA7F00AB0234 /* Reachability.h */,
+				9A12AF6416E6FA7F00AB0234 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		9A2BB93F169BCF0F0076B0CA /* Oauth */ = {
@@ -1438,6 +1464,9 @@
 				868FADD516B4B995008C46FE /* bb5_jj3.png in Resources */,
 				868FADD616B4B995008C46FE /* bb5_jj4.png in Resources */,
 				86810F7716D14EDA009A5D36 /* fitBudData.plist in Resources */,
+				9A12AF6816E6FA9B00AB0234 /* Reachability.podspec in Resources */,
+				9A12AF6916E6FA9B00AB0234 /* README.md in Resources */,
+				9A12AF6B16E6FAA500AB0234 /* LICENCE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,6 +1623,7 @@
 				868FAD8016B36D9A008C46FE /* AvatarLayer.m in Sources */,
 				8611AD5E16DABDEE00F7A178 /* GameDataBrain.m in Sources */,
 				8611ADB416DB14D800F7A178 /* MainScene.m in Sources */,
+				9A12AF6516E6FA7F00AB0234 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
